@@ -1,0 +1,93 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- Main window -->
+    <system:String x:Key="MainWindow">Редактор сохранений Готики</system:String>
+    
+    <system:String x:Key="Savegame">Сейв</system:String>
+    <system:String x:Key="Open">Открыть(Ctrl+A)</system:String>
+    <system:String x:Key="Save">Сохранить(Ctrl+S)</system:String>
+    <system:String x:Key="SaveAs">Сохранить как(Ctrl+Shift+C)</system:String>
+    <system:String x:Key="MakeBackup">Создать копию(Ctrl+B)</system:String>
+    <system:String x:Key="Close">Закрыть(Ctrl+X)</system:String>
+    
+    <system:String x:Key="Tools">Инструменты</system:String>
+    <system:String x:Key="ImportVariables">Импортировать переменные</system:String>
+    <system:String x:Key="ExportVariables">Экспортировать переменные</system:String>
+
+    
+    <system:String x:Key="Settings">Настройки</system:String>
+    <system:String x:Key="About">О Программе</system:String>
+    <system:String x:Key="AutoSearch">Авто-Поиск</system:String>
+
+    <system:String x:Key="Search">Поиск</system:String>
+
+    <system:String x:Key="Variable">Переменная</system:String>
+    <system:String x:Key="Value">Значение</system:String>
+
+
+    <!-- Settings window -->
+    <system:String x:Key="SettingsWindow">Настройки</system:String>
+    <system:String x:Key="GothicPath">Путь к папке с готикой</system:String>
+    <system:String x:Key="Language">Язык</system:String>
+    <system:String x:Key="BackupBeforeSaving">Автоматически создавать копии перед сохранением</system:String>
+
+    
+    <!-- About window -->
+    <system:String x:Key="AboutText">Gothic Save Editor(GSE) - это редактор сохранений Готики1/2 и их модов. Для большей информации, посетите форумы:</system:String>
+    <system:String x:Key="AuthorText1">Автор программы -</system:String>
+    <system:String x:Key="AuthorText2">Большое спасибо</system:String>
+    <system:String x:Key="AuthorText3">за его "Gothic Variables Editor"!</system:String>
+
+
+    <!-- Message boxes -->
+    <system:String x:Key="Warning">Предупреждение</system:String>
+
+    <system:String x:Key="UnableToSaveSettings">Не удалось применить настройки! Убедитесь, что вы запустили программу с правами администратора. </system:String>
+    <system:String x:Key="UnableToLoadSettings">Не удалось загрузить настройки! Используются стандартные.</system:String>
+
+    <system:String x:Key="UnableToLoadSavegameLoadError">Не удалось загрузить сохранение игры! Возможно у вас нет доступа к файлу.</system:String>
+    <system:String x:Key="UnableToLoadSavegameWrongPath">Не удалось загрузить сохранение игры! Неверный путь.</system:String>
+    <system:String x:Key="UnableToLoadSavegameItsBroken">Не удалось загрузить сохранение игры! Оно повреждено.</system:String>
+    <system:String x:Key="UnableToLoadSavegameUnknownError">Не удалось загрузить сохранение игры! Произошла неопознанная ошибка.</system:String>
+
+    <system:String x:Key="UnableToSaveSavegame">Не удалось изменить сохранение игры! Убедитесь что у вас есть доступ к файлу.</system:String>
+    <system:String x:Key="UnableToSaveSavegameProcess">Не удалось сохранить! Файл занят другим процессом.</system:String>
+
+    <system:String x:Key="SavegameWasModified">Сохранение было изменено но не сохранено! Вы действительно хотите закрыть его без сохранения?</system:String>
+
+    <system:String x:Key="UnableToSelectGameFolder">Не удалось выбрать папку с игрой!</system:String>
+
+    <system:String x:Key="UnableToSearch">Не удалось совершить поиск! Возможно вы ввели неверные символы.</system:String>
+    
+    <system:String x:Key="UnableToBackup">Не удалось создать резервную копию! Убедитесь что у вас есть права на это. </system:String>
+    
+    <system:String x:Key="UnableToLoadScripts">Не удалось загрузить список скриптов! Произошла неопознанная ошибка.</system:String>
+
+    <system:String x:Key="UnableToLoadVariable">Не удалось импортировать список переменных! Одна или несколько переменных не найдены.</system:String>
+    <system:String x:Key="NotFoundVariables">Следующие переменые не были найдены:</system:String>
+    <system:String x:Key="UnableToImportVariables">Не удалось импортировать список переменных!</system:String>
+    
+    <system:String x:Key="UnableToExportVariables">Не удалось экспортировать переменные!</system:String>
+
+    <system:String x:Key="VariablesWereImported">Переменные были успешно импортированы! Для применения изменений нажмите "Сохранить".</system:String>
+    <system:String x:Key="VariablesWereNotImported">Переменные не были импортированы. Они идентичны.</system:String>
+    <system:String x:Key="ScriptActionList">Список действий:</system:String>
+
+    
+    <!--  Info lines states  -->
+    <system:String x:Key="LoadingSaveGame">Загружается сохранение игры...</system:String>
+    <system:String x:Key="ImportingVariables">Импортируются переменные...</system:String>
+    <system:String x:Key="ExportingVariables">Экспортируются переменные...</system:String>
+    <system:String x:Key="BackupCreated">Резервная копия была успешно создана! </system:String>
+    <system:String x:Key="SavedSucessfully">Сохранение игры было успешно сохранено!</system:String>
+    <system:String x:Key="UnableToLoadSavegame">Не удалось загрузить сохранение игры!</system:String>
+    <system:String x:Key="NoNeedToSave">Сохранение не требуется. Файл не был изменен.</system:String>
+    <system:String x:Key="VariablesExportedSucessfully">Переменные были успешно экспортированы!</system:String>
+
+
+
+</ResourceDictionary>
