@@ -15,7 +15,7 @@
     <system:String x:Key="Close">Закрыть(Ctrl+X)</system:String>
     
     <system:String x:Key="Tools">Инструменты</system:String>
-    <system:String x:Key="ImportVariables">Импортировать переменные</system:String>
+    <system:String x:Key="ApplyScript">Применить скрипт</system:String>
     <system:String x:Key="ExportVariables">Экспортировать переменные</system:String>
 
     

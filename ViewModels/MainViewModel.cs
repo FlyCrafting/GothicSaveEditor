@@ -290,7 +290,7 @@ namespace GothicSaveEditor.ViewModel
         }
 
         //Not useful command, only for checking ImportScript availability
-        public RelayCommand ImportVariablesCommand => new RelayCommand(obj =>{}, a => !SaveGameNull());
+        public RelayCommand ApplyScriptCommands => new RelayCommand(obj =>{}, a => !SaveGameNull() && Scripts.Count > 0);
 
         public RelayCommand ExportVariablesCommand
         {
@@ -343,15 +343,12 @@ namespace GothicSaveEditor.ViewModel
                 }
                 foreach (var item in script.actions)
                 {
-                    try
+                    if (fastVariables.ContainsKey(item.Key.ToLower()))
                     {
                         fastVariables[item.Key.ToLower()].Value = item.Value;
-                        if (fastVariables[item.Key.ToLower()].Modified)
-                        {
-                            changesList.AppendLine("\n" + item.Key + " -> " + item.Value);
-                        }
+                        changesList.AppendLine("\n" + item.Key + " -> " + item.Value);
                     }
-                    catch
+                    else
                     {
                         notFoundVariables.AppendLine(item.Key);
                     }
@@ -412,19 +409,19 @@ namespace GothicSaveEditor.ViewModel
                     try
                     {
                         string[] lines = File.ReadAllLines(dir);
-                        if (lines.Length == 0)
+                        if (lines.Length == 0 || lines.Length > 250)
                             continue;
                         var nameVal = new Dictionary<string, int>();
                         foreach (var line in lines)
                         {
-                            if (String.IsNullOrWhiteSpace(line))
+                            if (string.IsNullOrWhiteSpace(line))
                                 continue;
                             int number = line.IndexOf("=");
                             if (number < 1)
                                 continue;
                             string varName = line.Substring(0, number).Replace(" ", "");
                             string value = line.Substring(number + 1).Replace(" ", "");
-                            int varValue = Int32.Parse(value);
+                            int varValue = int.Parse(value);
                             nameVal[varName] = varValue;
                         }
                         DispatchService.Invoke(new Action(() =>

@@ -13,8 +13,9 @@
     <system:String x:Key="MakeBackup">Make Backup(Ctrl+B)</system:String>
     <system:String x:Key="Close">Close(Ctrl+X)</system:String>
     
+  
     <system:String x:Key="Tools">Tools</system:String>
-    <system:String x:Key="ImportVariables">Import variables</system:String>
+    <system:String x:Key="ApplyScript">Apply Script</system:String>
     <system:String x:Key="ExportVariables">Export variables</system:String>
 
     <system:String x:Key="Settings">Settings</system:String>

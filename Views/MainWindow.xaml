@@ -39,7 +39,7 @@
                     <MenuItem Command="{Binding CloseSavegameCommand}" Header="{DynamicResource Close}" Background="White"/>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Tools}" Command="{Binding SettingsCommand}" Background="White">
-                    <MenuItem Header="{DynamicResource ImportVariables}" ItemsSource="{Binding Scripts}" Command="{Binding ImportVariablesCommand}" Background="White">
+                    <MenuItem Header="{DynamicResource ApplyScript}" ItemsSource="{Binding Scripts, Mode=OneWay}" IsEnabled="{Binding Scripts.Count, Mode=OneWay}" Background="White">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">
                                 <Setter Property="Header" Value="{Binding Name}" />
@@ -53,7 +53,7 @@
                 <MenuItem Header="{DynamicResource About}" Command="{Binding AboutCommand}" Background="White" />
             </Menu>
             <Menu Grid.Column="2" FontSize="14" Background="White">
-                <CheckBox IsThreeState="False" IsChecked="{Binding AutoSearch, Mode=TwoWay}" Content="{DynamicResource AutoSearch}" VerticalAlignment="Center"/>
+                <CheckBox IsThreeState="False" IsChecked="{Binding AutoSearch, Mode=TwoWay}" Content="{DynamicResource AutoSearch}"/>
             </Menu>
         </Grid>
 
