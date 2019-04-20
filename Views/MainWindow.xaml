@@ -16,7 +16,7 @@
     </Window.InputBindings>
 
 
-    <Grid Margin="5,0,5,0" Background="GhostWhite">
+    <Grid Margin="5,0,5,0" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -24,17 +24,22 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Menu Background="White" FontSize="14">
-                <MenuItem Header="{DynamicResource Savegame}" Background="GhostWhite">
-                    <MenuItem Header="{DynamicResource Open}" Command="{Binding OpenCommand}" Background="GhostWhite"/>
-                    <MenuItem Header="{DynamicResource Save}" Command="{Binding SaveCommand}" Background="GhostWhite"/>
-                    <MenuItem Header="{DynamicResource SaveAs}" Command="{Binding SaveAsCommand}" Background="GhostWhite"/>
-                    <MenuItem Header="{DynamicResource MakeBackup}" Command="{Binding MakeBackupCommand}" Background="GhostWhite"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Column="0" FontSize="14" Background="White">
+                <MenuItem Header="{DynamicResource Savegame}" Background="White">
+                    <MenuItem Header="{DynamicResource Open}" Command="{Binding OpenCommand}" Background="White"/>
+                    <MenuItem Header="{DynamicResource Save}" Command="{Binding SaveCommand}" Background="White"/>
+                    <MenuItem Header="{DynamicResource SaveAs}" Command="{Binding SaveAsCommand}" Background="White"/>
+                    <MenuItem Header="{DynamicResource MakeBackup}" Command="{Binding MakeBackupCommand}" Background="White"/>
                     <Separator />
-                    <MenuItem Command="{Binding CloseSavegameCommand}" Header="{DynamicResource Close}" Background="GhostWhite"/>
+                    <MenuItem Command="{Binding CloseSavegameCommand}" Header="{DynamicResource Close}" Background="White"/>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Tools}" Command="{Binding SettingsCommand}" Background="GhostWhite">
-                    <MenuItem Header="{DynamicResource ImportVariables}" ItemsSource="{Binding Scripts}" Command="{Binding ImportVariablesCommand}" Background="GhostWhite">
+                <MenuItem Header="{DynamicResource Tools}" Command="{Binding SettingsCommand}" Background="White">
+                    <MenuItem Header="{DynamicResource ImportVariables}" ItemsSource="{Binding Scripts}" Command="{Binding ImportVariablesCommand}" Background="White">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">
                                 <Setter Property="Header" Value="{Binding Name}" />
@@ -42,11 +47,13 @@
                             </Style>
                         </MenuItem.ItemContainerStyle>
                     </MenuItem>
-                    <MenuItem Header="{DynamicResource ExportVariables}" Command="{Binding ExportVariablesCommand}" Background="GhostWhite"></MenuItem>
+                    <MenuItem Header="{DynamicResource ExportVariables}" Command="{Binding ExportVariablesCommand}" Background="White"></MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Settings}" Command="{Binding SettingsCommand}" Background="GhostWhite"/>
-                <MenuItem Header="{DynamicResource About}" Command="{Binding AboutCommand}" Background="GhostWhite" />
-                <CheckBox IsThreeState="False" IsChecked="{Binding AutoSearch, Mode=TwoWay}" Content="{DynamicResource AutoSearch}" MinWidth="110" VerticalAlignment="Center" FontSize="14" Background="GhostWhite"/>
+                <MenuItem Header="{DynamicResource Settings}" Command="{Binding SettingsCommand}" Background="White"/>
+                <MenuItem Header="{DynamicResource About}" Command="{Binding AboutCommand}" Background="White" />
+            </Menu>
+            <Menu Grid.Column="2" FontSize="14" Background="White">
+                <CheckBox IsThreeState="False" IsChecked="{Binding AutoSearch, Mode=TwoWay}" Content="{DynamicResource AutoSearch}" VerticalAlignment="Center"/>
             </Menu>
         </Grid>
 
@@ -56,16 +63,16 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text="{Binding SearchLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="GhostWhite"></TextBox>
-                <Button Grid.Column="1" MinWidth="75" Content="{DynamicResource Search}" FontSize="14" Command="{Binding SearchCommand}" Background="GhostWhite"></Button>
+                <TextBox Grid.Column="0" Text="{Binding SearchLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White"></TextBox>
+                <Button Grid.Column="1" MinWidth="75" Content="{DynamicResource Search}" FontSize="14" Command="{Binding SearchCommand}" Background="White"></Button>
             </Grid>
         </Grid>
 
-        <DataGrid Margin="0, 2, 0, 0" Grid.Row="2" HeadersVisibility="Column" ItemsSource="{Binding DataGridVariables, Mode=OneWay}"  Background="GhostWhite" AutoGenerateColumns="False"
+        <DataGrid Margin="0, 2, 0, 0" Grid.Row="2" HeadersVisibility="Column" ItemsSource="{Binding DataGridVariables, Mode=OneWay}"  Background="White" AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Resources>
                 <Style TargetType="ScrollBar">
-                    <Setter Property="Background" Value="GhostWhite"></Setter>
+                    <Setter Property="Background" Value="White"></Setter>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
@@ -82,7 +89,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StatusBar Grid.Row="3" Background="GhostWhite">
+        <StatusBar Grid.Row="3" Background="White">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -94,10 +101,10 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0">
-                <TextBlock FontSize="11" Text="{Binding LeftInfoLine, Mode=OneWay}" TextAlignment="Left" Background="GhostWhite"></TextBlock>
+                <TextBlock FontSize="11" Text="{Binding LeftInfoLine, Mode=OneWay}" TextAlignment="Left" Background="White"></TextBlock>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <TextBlock FontSize="11" Text="{Binding RightInfoLine, Mode=OneWay}" TextAlignment="Right" Background="GhostWhite"></TextBlock>
+                <TextBlock FontSize="11" Text="{Binding RightInfoLine, Mode=OneWay}" TextAlignment="Right" Background="White"></TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>

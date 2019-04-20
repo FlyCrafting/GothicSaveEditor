@@ -31,7 +31,7 @@
     <system:String x:Key="SettingsWindow">Settings</system:String>
     <system:String x:Key="GothicPath">Path to the Gothic Folder</system:String>
     <system:String x:Key="Language">Language</system:String>
-    <system:String x:Key="BackupBeforeSaving">Automatically creating backups before saving</system:String>
+    <system:String x:Key="BackupBeforeSaving">Automatically create backups before saving</system:String>
 
     
     <!-- About window -->

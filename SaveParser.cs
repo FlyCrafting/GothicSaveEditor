@@ -49,8 +49,7 @@ namespace GothicSaveTools
                 index++;
             }
             index += 8; // 02 00 00 00 01 00 00 00
-
-            int maxByte = 0;
+            int maxByte;
             try
             {
                 maxByte = BitConverter.ToInt32(byteArray, index); //Последний байт
