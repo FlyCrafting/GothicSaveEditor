@@ -11,28 +11,25 @@ namespace GothicSaveTools
 {
     public class SaveParser
     {
-        private bool _dialogMode = true;
+        private bool _dialogMode;
         private bool _dialogBegin;
         private bool _dialogEnd;
         private bool _diaryMode;
 
         public List<GothicVariable> Parse(string path)
         {
-            //Вторая проверка на чтение байтов из файла
-            byte[] byteArray; //Хранит весь сейв в байтах
+            byte[] byteArray;
             try
             {
-                byteArray = File.ReadAllBytes(path); //Чтение байтов с сейва
+                byteArray = File.ReadAllBytes(path); // Читаем сейв побайтово
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
-                MessageBox.Show(ResourceService.GetString("UnableToLoadSavegameItsBroken"));
-                return null;
+                throw new Exception("ReadBytesError", ex); // Ошибка чтения байтов файла
             }
 
-            int index = 0; //Основная переменная итерации цикла парсинга
-            //Отсеиваем ненужную часть сейва(данные о сейве, там где нет переменных)
+            var index = 0; // Итератор цикла
+            // Скипаем ненужную часть в начале сейва.
             while (index < byteArray.Length)
             {
                 if (byteArray[index] == 0x02
@@ -48,29 +45,38 @@ namespace GothicSaveTools
                 }
                 index++;
             }
-            index += 8; // 02 00 00 00 01 00 00 00
+            index += 8; // После того как скипнули начальную ненужную часть, нужно скипнуть следующие байты: 02 00 00 00 01 00 00 00
+
             int maxByte;
             try
             {
-                maxByte = BitConverter.ToInt32(byteArray, index); //Последний байт
+                maxByte = BitConverter.ToInt32(byteArray,
+                    index); // Последний байт, до которого следует читать (далее идет мусор)
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
-                MessageBox.Show(ResourceService.GetString("UnableToLoadSavegameItsBroken"));
-                return null;
+                throw new Exception("MaxByteBroken", ex); // Ошибка чтения номера последнего байта, сейвгейм сломан.
             }
+
+            if (maxByte == 0)
+                throw new Exception("MaxByteBroken");
+
             index += 3;
 
-            // Инициализация всех необходимых переменных
-            bool readMode = false;
-            string varname = ""; // Название текущей переменной
-            List<int> values = new List<int>();
 
-            var positions = new PosDict(); //Служит для закрепления позиции за каждой переменной
+            // Устанавливаем начальные значения переменных
+            _dialogMode = true;
+            _dialogBegin = false;
+            _dialogEnd = false;
+            _diaryMode = false;
+            var readMode = false;
+            var varname = ""; // Название текущей переменной
+            var values = new List<int>();
+
+            var positions = new PosDict(); // Служит для закрепления позиции за каждой переменной
             var variablesList = new List<GothicVariable>();
 
-            //Начинаем парсить переменные!
+            // Начинаем парсить переменные!
             while (index < maxByte)
             {
                 try
@@ -110,7 +116,7 @@ namespace GothicSaveTools
                             }
                         }
                     }
-                    else if (byteArray[index] == 0x01)//Начало строки(названия переменной)
+                    else if (byteArray[index] == 0x01) //Начало строки(названия переменной)
                     {
                         var stringLength = ReadLength(ref byteArray, ref index); // Длина названия текущей переменной
                         if (stringLength > 0)//Valid?
@@ -143,9 +149,7 @@ namespace GothicSaveTools
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
-                    MessageBox.Show(ResourceService.GetString("UnableToLoadSavegameItsBroken"));
-                    return null;
+                    throw new Exception("UnableToReadSavegame", ex);
                 }
                 index++;
             }
@@ -160,7 +164,7 @@ namespace GothicSaveTools
             return variablesList;
         }
 
-        private int[] JumpNr(ref byte[] bytes, ref int rIndex, ref PosDict rPositions)//Reads the values
+        private int[] JumpNr(ref byte[] bytes, ref int rIndex, ref PosDict rPositions) //Reads the values
         {
             int[] arrVar = new int[1];
             var arrIteration = -1;
@@ -207,7 +211,7 @@ namespace GothicSaveTools
             return arrVar;
         }
 
-        private int ReadLength(ref byte[] bytes, ref int rIndex)//Reads the length of the variable string
+        private static int ReadLength(ref byte[] bytes, ref int rIndex) //Reads the length of the variable string
         {
             rIndex += 1;
             int length = BitConverter.ToInt16(bytes, rIndex);

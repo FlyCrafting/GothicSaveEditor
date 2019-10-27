@@ -81,6 +81,7 @@
     <Compile Include="Services\DispatchService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\SaveParserState.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
@@ -179,5 +180,6 @@
   <ItemGroup>
     <Resource Include="Resources\backup.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
