@@ -99,7 +99,7 @@
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Models\GothicVariable.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="SaveParser.cs" />
+    <Compile Include="SaveReader.cs" />
     <Compile Include="VariablesComparer.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -471,7 +471,7 @@ namespace GothicSaveEditor.ViewModel
             //Path is always not null here!
             try
             {
-                List<GothicVariable> tempVariables = new SaveParser().Parse(saveGamePath);
+                List<GothicVariable> tempVariables = new SaveReader().Read(saveGamePath);
                 if (tempVariables == null)
                     return;
                 openedSaveGame = new SaveGame(saveGamePath, tempVariables);
