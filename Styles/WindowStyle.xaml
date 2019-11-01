@@ -3,10 +3,11 @@
                     xmlns:local="clr-namespace:GothicSaveEditor"
                     x:Class="GothicSaveEditor.Styles.WindowStyle">
 
-    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
-    <SolidColorBrush x:Key="BrushColor" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
-
+    <Style x:Key="HeaderTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextStyle}">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource BrushColor}" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
 
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -50,12 +51,6 @@
                             <Border x:Name="PartBorder" Width="Auto" Height="Auto" Background="{DynamicResource BackgroundColor}"
                                 BorderBrush="{StaticResource BorderColor}" BorderThickness="1" Padding="0">
                                 <Grid VerticalAlignment="Stretch">
-                                    <Grid.Background>
-                                        <ImageBrush
-                                               ImageSource="pack://application:,,,/GothicSaveEditor;component/Resources/gothic_background.jpg"
-                                               Stretch="UniformToFill">
-                                        </ImageBrush>
-                                    </Grid.Background>
                                     <Grid Name="Topbar"
                                             Height="30" 
                                             HorizontalAlignment="Stretch"

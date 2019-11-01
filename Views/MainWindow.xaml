@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Style="{DynamicResource WindowStyle}"
-        Title="{Binding GSEVersion}" Height="525" MinHeight="525" Width="700" MinWidth="700">
+        Title="{Binding GSEVersion}" Height="400" MinHeight="400" Width="600" MinWidth="600">
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding OpenCommand}" Gesture="Ctrl+A"/>
@@ -33,14 +33,14 @@
             
             <Menu Grid.Column="0" FontSize="14" Background="Transparent">
                 <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource Savegame}">
-                    <MenuItem Opacity="0.5" Style="{DynamicResource MenuItemSubStyle}" Header="{DynamicResource Open}" Command="{Binding OpenCommand}"/>
-                    <MenuItem Style="{DynamicResource MenuItemSubStyle}" Header="{DynamicResource Save}" Command="{Binding SaveCommand}"/>
-                    <MenuItem Style="{DynamicResource MenuItemSubStyle}" Header="{DynamicResource SaveAs}" Command="{Binding SaveAsCommand}"/>
-                    <MenuItem Style="{DynamicResource MenuItemSubStyle}" Header="{DynamicResource MakeBackup}" Command="{Binding MakeBackupCommand}"/>
+                    <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource Open}" Command="{Binding OpenCommand}"/>
+                    <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource Save}" Command="{Binding SaveCommand}"/>
+                    <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource SaveAs}" Command="{Binding SaveAsCommand}"/>
+                    <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource MakeBackup}" Command="{Binding MakeBackupCommand}"/>
                     <Separator />
-                    <MenuItem Style="{DynamicResource MenuItemSubStyle}" Header="{DynamicResource Close}" Command="{Binding CloseSavegameCommand}" />
+                    <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource Close}" Command="{Binding CloseSavegameCommand}" />
                 </MenuItem>
-                <MenuItem Foreground="White" Header="{DynamicResource Tools}" Command="{Binding SettingsCommand}" Background="Transparent">
+                <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource Tools}" Command="{Binding SettingsCommand}" Background="Transparent">
                     <MenuItem Style="{DynamicResource MenuItemStyle}" Header="{DynamicResource ApplyScript}" ItemsSource="{Binding Scripts, Mode=OneWay}" IsEnabled="{Binding Scripts.Count, Mode=OneWay}">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">

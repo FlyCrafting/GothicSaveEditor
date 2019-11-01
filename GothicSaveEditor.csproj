@@ -106,6 +106,10 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Services\WindowsService.cs" />
+    <Page Include="Styles\ResourcesStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\MenuStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,9 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\backup.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\gothic_background.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
