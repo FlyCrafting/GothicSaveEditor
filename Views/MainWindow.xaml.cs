@@ -13,7 +13,7 @@ namespace GothicSaveEditor
             InitializeComponent();
 
             //Creating View Model and set its DataContext for binding
-            MainViewModel viewModelLogic = new MainViewModel();
+            var viewModelLogic = new MainViewModel();
             DataContext = viewModelLogic;
         }
     }

@@ -80,14 +80,11 @@ namespace GothicSaveEditor.ViewModel
         public ObservableCollection<GothicVariable> DataGridVariables { get; set; } = new ObservableCollection<GothicVariable>();
         public ObservableCollection<Script> Scripts { get; set; } = new ObservableCollection<Script>();
 
-        private SaveGame? _openedSaveGame = null;
+        private SaveGame? _openedSaveGame;
 
-        private bool _dynamicInfo = false;
+        private bool _dynamicInfo;
 
-        public string GSEVersion
-        {
-            get => Settings.GSEVersion;
-        }
+        public string GSEVersion => Settings.GSEVersion;
 
         #endregion
 
@@ -242,7 +239,7 @@ namespace GothicSaveEditor.ViewModel
             }
         }
 
-        public RelayCommand CloseSavegameCommand
+        public RelayCommand CloseCommand
         {
             get
             {

@@ -10,7 +10,7 @@
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="Esc"/>
     </Window.InputBindings>
 
-    <Grid Margin="5,5,5,5" Background="GhostWhite">
+    <Grid Margin="5,5,5,5" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
