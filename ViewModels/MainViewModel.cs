@@ -80,9 +80,9 @@ namespace GothicSaveEditor.ViewModel
         public ObservableCollection<GothicVariable> DataGridVariables { get; set; } = new ObservableCollection<GothicVariable>();
         public ObservableCollection<Script> Scripts { get; set; } = new ObservableCollection<Script>();
 
-        private SaveGame? openedSaveGame = null;
+        private SaveGame? _openedSaveGame = null;
 
-        private bool dynamicInfo = false;
+        private bool _dynamicInfo = false;
 
         public string GSEVersion
         {
@@ -139,7 +139,7 @@ namespace GothicSaveEditor.ViewModel
                         }
                         if (Settings.AutoBackup)
                         {
-                            File.Copy(openedSaveGame.Value.FilePath, openedSaveGame.Value.FilePath + ".bak", true);
+                            File.Copy(_openedSaveGame.Value.FilePath, _openedSaveGame.Value.FilePath + ".bak", true);
                         }
                         WriteVariablesToFile();
                         SetDynamicInfo("SavedSucessfully");
@@ -166,7 +166,7 @@ namespace GothicSaveEditor.ViewModel
                             return;
                         try
                         {
-                            File.Copy(openedSaveGame.Value.FilePath, path, true);
+                            File.Copy(_openedSaveGame.Value.FilePath, path, true);
                         }
                         catch (Exception ex)
                         {
@@ -254,7 +254,7 @@ namespace GothicSaveEditor.ViewModel
                         {
                             DataGridVariables.Clear();
                             Scripts.Clear();
-                            openedSaveGame = null;
+                            _openedSaveGame = null;
                             LeftInfoLine = "";
                             RightInfoLine = "";
                             SearchLine = "";
@@ -277,7 +277,7 @@ namespace GothicSaveEditor.ViewModel
                 {
                     try
                     {
-                        File.Copy(openedSaveGame.Value.FilePath, openedSaveGame.Value.FilePath + ".bak", true);
+                        File.Copy(_openedSaveGame.Value.FilePath, _openedSaveGame.Value.FilePath + ".bak", true);
                         SetDynamicInfo("BackupCreated");
                     }
                     catch (Exception ex)
@@ -321,7 +321,7 @@ namespace GothicSaveEditor.ViewModel
         private void ExportVariablesTask(string path)
         {
             var writeText = new StringBuilder();
-            foreach (var variable in openedSaveGame.Value.VariablesList)
+            foreach (var variable in _openedSaveGame.Value.VariablesList)
             {
                 writeText.AppendLine(variable.FullName + " = " + variable.Value);
             }
@@ -337,7 +337,7 @@ namespace GothicSaveEditor.ViewModel
                 var changesList = new StringBuilder();
                 var notFoundVariables = new StringBuilder();
                 var fastVariables = new Dictionary<string, GothicVariable>();
-                foreach(var variable in openedSaveGame.Value.VariablesList)
+                foreach(var variable in _openedSaveGame.Value.VariablesList)
                 {
                     fastVariables[variable.FullName.ToLower()] = variable;
                 }
@@ -357,7 +357,7 @@ namespace GothicSaveEditor.ViewModel
                 DispatchService.Invoke(new Action(() =>
                 {
                     DataGridVariables.Clear();
-                    foreach (var p in openedSaveGame.Value.VariablesList)
+                    foreach (var p in _openedSaveGame.Value.VariablesList)
                         DataGridVariables.Add(p);
                 }));
                 SearchLine = "";
@@ -381,7 +381,7 @@ namespace GothicSaveEditor.ViewModel
             }
             finally
             {
-                LeftInfoLine = openedSaveGame.Value.FilePath;
+                LeftInfoLine = _openedSaveGame.Value.FilePath;
             }
         }
 
@@ -444,13 +444,13 @@ namespace GothicSaveEditor.ViewModel
 
         private void SetDynamicInfo(string text, bool setToPath=false)
         {
-            if (dynamicInfo)
+            if (_dynamicInfo)
                 return;
-            dynamicInfo = true;
+            _dynamicInfo = true;
             string backup = "";
             if (setToPath && !SaveGameNull())
             {
-                backup = openedSaveGame.Value.FilePath;
+                backup = _openedSaveGame.Value.FilePath;
             }
             else
             {
@@ -463,7 +463,7 @@ namespace GothicSaveEditor.ViewModel
         private void ResetDynamicInfo(string toText)
         {
             LeftInfoLine = toText;
-            dynamicInfo = false;
+            _dynamicInfo = false;
         }
 
         private void LoadSaveGame(string saveGamePath)
@@ -474,15 +474,15 @@ namespace GothicSaveEditor.ViewModel
                 List<GothicVariable> tempVariables = new SaveReader().Read(saveGamePath);
                 if (tempVariables == null)
                     return;
-                openedSaveGame = new SaveGame(saveGamePath, tempVariables);
+                _openedSaveGame = new SaveGame(saveGamePath, tempVariables);
 
                 DispatchService.Invoke(new Action(() =>
                 {
-                    foreach (var p in openedSaveGame.Value.VariablesList)
+                    foreach (var p in _openedSaveGame.Value.VariablesList)
                         DataGridVariables.Add(p);
                 }));
-                LeftInfoLine = openedSaveGame.Value.FilePath;
-                RightInfoLine = openedSaveGame.Value.VariablesList.Count.ToString();
+                LeftInfoLine = _openedSaveGame.Value.FilePath;
+                RightInfoLine = _openedSaveGame.Value.VariablesList.Count.ToString();
             }
             catch(Exception ex)
             {
@@ -496,7 +496,7 @@ namespace GothicSaveEditor.ViewModel
         {
             if (path == null)
             {
-                path = openedSaveGame.Value.FilePath;
+                path = _openedSaveGame.Value.FilePath;
             }
             //No try here. It's handled before.
             DispatchService.Invoke(new Action(() =>
@@ -519,7 +519,7 @@ namespace GothicSaveEditor.ViewModel
 
         private bool SaveGameNull()
         {
-            return openedSaveGame == null;
+            return _openedSaveGame == null;
         }
 
         private bool IsDataGridChanged()
@@ -545,7 +545,7 @@ namespace GothicSaveEditor.ViewModel
                 return;
             try
             {
-                var variables = SearchService.Search(SearchLine, openedSaveGame.Value.VariablesList);
+                var variables = SearchService.Search(SearchLine, _openedSaveGame.Value.VariablesList);
                 DispatchService.Invoke(new Action(() =>
                 {
                     DataGridVariables.Clear();

@@ -79,7 +79,6 @@ namespace GothicSaveTools
                     _dialogBegin = true;
                     return arrVar;
                 }
-                //Is there no return? Because only the last block stores the value (yes, the format of the PBs is very 'interesting')
             }
             return arrVar;
         }

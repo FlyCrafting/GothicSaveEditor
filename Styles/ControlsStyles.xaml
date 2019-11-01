@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GothicSaveEditor.Styles">
+
+    <FontFamily x:Key="Font">Malgun Gothic</FontFamily>
+
+
+    <Style x:Key="WhiteTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="{StaticResource Font}" />
+    </Style>
+
+    <Style x:Key="HeaderTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource WhiteTextStyle}">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+
+
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style TargetType="{x:Type Separator}">
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderBrush" Value="Black" />
+    </Style>
+
+
+</ResourceDictionary>
