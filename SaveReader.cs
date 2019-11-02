@@ -29,12 +29,20 @@ namespace GothicSaveTools
         {
             var arrVar = new int[1];
             var arrIteration = -1;
+            var isArray = false;
             while (bytes[rIndex] == 0x12) // Начало значения переменной
             {
-                rIndex += 5;
+                rIndex += 2;
 
-                if (bytes[rIndex] == 0x01) 
+                if (bytes[rIndex] == 0x03 // массивы типа int
+                    || bytes[rIndex] == 0xd3) // массивы типа bool
+                    isArray = true; // Фикс от 2.11.2019 на чтение переменных Готики1
+
+                rIndex += 3;
+                if (bytes[rIndex] == 0x01)
+                {
                     break; // Если 0x01 то это текст, значит мы зашли сюда по ошибке.
+                }
 
                 rIndex++;
                 if (bytes[rIndex - 1] == 0x02) // Значение начинается здесь
@@ -46,10 +54,9 @@ namespace GothicSaveTools
                         _dialogEnd = true;
                         _dialogBegin = false;
                     }
-                    else if (arrIteration <= -1) // 29.10.2019: Фиксим баг квестов
-                    {
+
+                    if (!isArray)
                         arrIteration = 0;
-                    }
 
                     if (arrIteration <= -1) // Для переменных если это первый блок то это длина массива
                     {
