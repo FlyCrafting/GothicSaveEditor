@@ -4,18 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="{DynamicResource SettingsWindow}" Height="175" Width="400">
+        Style="{DynamicResource WindowStyle}"
+        Title="{DynamicResource SettingsWindow}" Height="240" Width="480">
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="Esc"/>
     </Window.InputBindings>
 
-    <Grid Margin="5,5,5,5" Background="White">
+    <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -23,14 +24,16 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{DynamicResource GothicPath}" FontSize="14" Background="White"></TextBlock>
-            <Grid Grid.Row="1">
+            <TextBlock Grid.Row="0" FontWeight="SemiBold" Text="{DynamicResource GothicPath}"></TextBlock>
+            <Grid Grid.Row="1" Height="28">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text="{Binding PathLine, Mode=OneWay}" IsReadOnly="True" FontSize="14" Background="White"></TextBox>
-                <Button Grid.Column="1" Content="..." Command="{Binding SelectFolderCommand}" Background="White"></Button>
+                <Border BorderThickness="1" BorderBrush="#e3f2fd" Grid.Column="0" >
+                    <TextBlock VerticalAlignment="Center" Text="{Binding PathLine, Mode=OneWay}"></TextBlock>
+                </Border>
+                <Button Margin="1 0 0 0" Grid.Column="1" Content="..." Command="{Binding SelectFolderCommand}"></Button>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
@@ -38,11 +41,11 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{DynamicResource Language}" FontSize="14" Background="White"></TextBlock>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}" FontSize="14" Background="White"></ComboBox>
+            <TextBlock Grid.Row="0" Text="{DynamicResource Language}" FontWeight="SemiBold"></TextBlock>
+            <ComboBox  Grid.Row="1" ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"></ComboBox>
         </Grid>
         <Grid Grid.Row="4">
-            <CheckBox IsThreeState="False" IsChecked="{Binding BackupBeforeSaving, Mode=TwoWay}" Content="{DynamicResource BackupBeforeSaving}" FontSize="14" Background="White"/>
+            <CheckBox FontWeight="SemiBold" IsThreeState="False" IsChecked="{Binding BackupBeforeSaving, Mode=TwoWay}" Content="{DynamicResource BackupBeforeSaving}"/>
         </Grid>
     </Grid>
 </Window>

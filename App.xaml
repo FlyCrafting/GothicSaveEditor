@@ -5,10 +5,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/ResourcesStyle.xaml" />
-                <ResourceDictionary Source="Styles/ControlsStyles.xaml" />
-                <ResourceDictionary Source="Styles/MenuStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/materialdesigncolor.cyan.xaml" />
+
                 <ResourceDictionary Source="Styles/WindowStyle.xaml" />
+
+
                 <ResourceDictionary Source="Resources/English.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
