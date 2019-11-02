@@ -454,7 +454,7 @@ namespace GothicSaveEditor.ViewModel
                 backup = LeftInfoLine;
             }
             LeftInfoLine = ResourceService.GetString(text);
-            Task.Delay(Settings.infoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
+            Task.Delay(Settings.InfoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
         }
 
         private void ResetDynamicInfo(string toText)

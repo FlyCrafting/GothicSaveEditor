@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        Tag="{DynamicResource Settings}"
         Style="{DynamicResource WindowStyle}"
         Title="{DynamicResource SettingsWindow}" Height="240" Width="480">
     

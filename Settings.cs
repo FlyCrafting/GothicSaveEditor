@@ -63,7 +63,7 @@ namespace GothicSaveEditor
 
         #region App main settings
 
-        public static int infoLinePopUpTime = 1500;
+        public static int InfoLinePopUpTime = 1500;
 
         public static readonly string scriptsDirectory = @"\scripts";
         
@@ -71,7 +71,7 @@ namespace GothicSaveEditor
 
         private static readonly string settingsFile = @"settings.gsec";
 
-        private static bool exceptionDuringLoading = false;
+        private static bool _exceptionDuringLoading = false;
         #endregion
 
         static Settings()
@@ -91,7 +91,7 @@ namespace GothicSaveEditor
             {
                 App.SetLanguage(language);
             }
-            if (exceptionDuringLoading)
+            if (_exceptionDuringLoading)
                 MessageBox.Show(ResourceService.GetString("UnableToLoadSettings"));
         }
 
@@ -139,7 +139,7 @@ namespace GothicSaveEditor
             }
             catch (Exception ex)
             {
-                exceptionDuringLoading = true;
+                _exceptionDuringLoading = true;
                 Logger.Log(ex);
             }
         }
