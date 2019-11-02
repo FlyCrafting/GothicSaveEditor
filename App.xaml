@@ -12,7 +12,6 @@
 
                 <ResourceDictionary Source="Styles/WindowStyle.xaml" />
 
-
                 <ResourceDictionary Source="Resources/English.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

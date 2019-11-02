@@ -67,7 +67,7 @@ namespace GothicSaveEditor
 
         public static readonly string scriptsDirectory = @"\scripts";
         
-        public static string GSEVersion = "Gothic Save Editor v " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
+        public static string GSEVersion = "Gothic Save Editor v. " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5) + " closed-beta";
 
         private static readonly string settingsFile = @"settings.gsec";
 
