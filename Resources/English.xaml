@@ -48,10 +48,13 @@
     <system:String x:Key="UnableToSaveSettings">Unable to apply current settings! Make sure that you run the program with administrator rights.</system:String>
     <system:String x:Key="UnableToLoadSettings">Unable to load settings! Use default.</system:String>
 
-    <system:String x:Key="UnableToLoadSavegameLoadError">Unable to load savegame! Make sure that you have access to the file.</system:String>
-    <system:String x:Key="UnableToLoadSavegameWrongPath">Unable to load savegame! Wrong path.</system:String>
-    <system:String x:Key="UnableToLoadSavegameItsBroken">Unable to load savegame! It is broken.</system:String>
-    <system:String x:Key="UnableToLoadSavegameUnknownError">Cannot load savegame! An unknown error happened.</system:String>
+
+    <!-- Save Reader  -->
+
+    <system:String x:Key="ReadBytesError">Unable to read bytes from savegame file!</system:String>
+    <system:String x:Key="MaxByteError">Unable to read last byte address from savegame file!</system:String>
+    <system:String x:Key="EmptyVariablesList">Variables list is empty!</system:String>
+    
 
     <system:String x:Key="UnableToSaveSavegame">Unable to edit savegame! Make sure that you have access to the file.</system:String>
     <system:String x:Key="UnableToSaveSavegameProcess">Unable to save savegame! File is used by another process.</system:String>

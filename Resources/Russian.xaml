@@ -6,8 +6,8 @@
 
     <!-- Main window -->
     <system:String x:Key="MainWindow">Редактор сохранений Готики</system:String>
-    
-    <system:String x:Key="Savegame">Сейв</system:String>
+
+    <system:String x:Key="Savegame">Файл</system:String>
     <system:String x:Key="Open">Открыть(Ctrl+A)</system:String>
     <system:String x:Key="Save">Сохранить(Ctrl+S)</system:String>
     <system:String x:Key="SaveAs">Сохранить как(Ctrl+Shift+C)</system:String>
@@ -49,10 +49,12 @@
     <system:String x:Key="UnableToSaveSettings">Не удалось применить настройки! Убедитесь, что вы запустили программу с правами администратора. </system:String>
     <system:String x:Key="UnableToLoadSettings">Не удалось загрузить настройки! Используются стандартные.</system:String>
 
-    <system:String x:Key="UnableToLoadSavegameLoadError">Не удалось загрузить сохранение игры! Возможно у вас нет доступа к файлу.</system:String>
-    <system:String x:Key="UnableToLoadSavegameWrongPath">Не удалось загрузить сохранение игры! Неверный путь.</system:String>
-    <system:String x:Key="UnableToLoadSavegameItsBroken">Не удалось загрузить сохранение игры! Оно повреждено.</system:String>
-    <system:String x:Key="UnableToLoadSavegameUnknownError">Не удалось загрузить сохранение игры! Произошла неопознанная ошибка.</system:String>
+
+    <!-- Save Reader  -->
+    <system:String x:Key="ReadBytesError">Не удалось считать байты с файла сохранения!</system:String>
+    <system:String x:Key="MaxByteError">Не удалось считать адрес последнего байта с файла сохранения!</system:String>
+    <system:String x:Key="EmptyVariablesList">Список значений пуст!</system:String>
+
 
     <system:String x:Key="UnableToSaveSavegame">Не удалось изменить сохранение игры! Убедитесь что у вас есть доступ к файлу.</system:String>
     <system:String x:Key="UnableToSaveSavegameProcess">Не удалось сохранить! Файл занят другим процессом.</system:String>

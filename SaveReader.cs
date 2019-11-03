@@ -179,10 +179,10 @@ namespace GothicSaveTools
             }
             catch (Exception ex)
             {
-                throw new Exception("MaxByteBroken", ex); // Ошибка чтения номера последнего байта, сейвгейм сломан.
+                throw new Exception("MaxByteError", ex); // Ошибка чтения номера последнего байта, сейвгейм сломан.
             }
             if (maxByte == 0)
-                throw new Exception("MaxByteBroken");
+                throw new Exception("MaxByteError");
             index += 4;
 
             return (index, maxByte);

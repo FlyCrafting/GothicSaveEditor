@@ -10,9 +10,9 @@
         Background="{DynamicResource MaterialDesignBackground}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        Tag="{Binding GSEVersion}"
+        Tag="{Binding GseVersion}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="{Binding GSEVersion}" Height="460" MinHeight="460" Width="600" MinWidth="600">
+        Height="460" MinHeight="460" Width="600" MinWidth="600">
 
 
 

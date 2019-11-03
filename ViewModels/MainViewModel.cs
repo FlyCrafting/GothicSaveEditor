@@ -10,11 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using NLog;
 
 namespace GothicSaveEditor.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         #region PropertyChanged (for binding)
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string prop = "")
@@ -31,7 +33,7 @@ namespace GothicSaveEditor.ViewModel
             set
             {
                 _searchLine = value;
-                if (AutoSearch && !SaveGameNull())
+                if (!SaveGameNull())
                 {
                     Search();
                 }
@@ -62,7 +64,7 @@ namespace GothicSaveEditor.ViewModel
         }
 
 
-        public bool AutoSearch
+        /*public bool AutoSearch
         {
             get => Settings.AutoSearch;
             set
@@ -73,7 +75,7 @@ namespace GothicSaveEditor.ViewModel
                     Search();
                 }
             }
-        }
+        }*/
         #endregion
 
         #region Variables
@@ -84,7 +86,8 @@ namespace GothicSaveEditor.ViewModel
 
         private bool _dynamicInfo;
 
-        public string GSEVersion => Settings.GSEVersion;
+        // ReSharper disable once UnusedMember.Global
+        public string GseVersion => Settings.GseVersion;
 
         #endregion
 
@@ -103,7 +106,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToLoadSavegameLoadError"));
                     }
                     //If user didn't select path - return.
@@ -143,7 +146,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToSaveSavegame"));
                     }
                 }, a=>!SaveGameNull());
@@ -169,7 +172,7 @@ namespace GothicSaveEditor.ViewModel
                         {
                             if (ex.HResult == -2147024864)
                             {
-                                Logger.Log(ex);
+                                Logger.Error(ex);
                                 MessageBox.Show(ResourceService.GetString("UnableToSaveSavegameProcess"));
                             }
                         }
@@ -178,7 +181,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToSaveSavegame"));
                     }
                 }, a => !SaveGameNull());
@@ -197,7 +200,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                     }
                 }, a => !SaveGameNull());
             }
@@ -215,7 +218,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                     }
                 });
             }
@@ -233,7 +236,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                     }
                 });
             }
@@ -259,7 +262,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                     }
                 }, a => !SaveGameNull());
             }
@@ -279,7 +282,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToBackup"));
                     }
                 }, a => !SaveGameNull());
@@ -305,7 +308,7 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToExportVariables"));
                     }
                 }, a => !SaveGameNull());
@@ -373,7 +376,7 @@ namespace GothicSaveEditor.ViewModel
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
+                Logger.Error(ex);
                 MessageBox.Show(ResourceService.GetString("UnableToImportVariables"));
             }
             finally
@@ -386,12 +389,12 @@ namespace GothicSaveEditor.ViewModel
         {
             try
             {
-                if (!Directory.Exists(Environment.CurrentDirectory + Settings.scriptsDirectory))
+                if (!Directory.Exists(Environment.CurrentDirectory + Settings.ScriptsDirectory))
                 {
-                    Directory.CreateDirectory(Environment.CurrentDirectory + Settings.scriptsDirectory);
+                    Directory.CreateDirectory(Environment.CurrentDirectory + Settings.ScriptsDirectory);
                     return;
                 }
-                string[] dirs = Directory.GetFiles(Environment.CurrentDirectory + Settings.scriptsDirectory, "*.gses");
+                string[] dirs = Directory.GetFiles(Environment.CurrentDirectory + Settings.ScriptsDirectory, "*.gses");
                 if (dirs.Length == 0)
                 {
                     return;
@@ -428,13 +431,13 @@ namespace GothicSaveEditor.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
+                Logger.Error(ex);
                 MessageBox.Show(ResourceService.GetString("UnableToLoadScripts"));
             }
         }
@@ -481,10 +484,10 @@ namespace GothicSaveEditor.ViewModel
                 LeftInfoLine = _openedSaveGame.Value.FilePath;
                 RightInfoLine = _openedSaveGame.Value.VariablesList.Count.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.Log(ex);
-                MessageBox.Show(ResourceService.GetString("UnableToLoadSavegameUnknownError"));
+                Logger.Error(ex);
+                MessageBox.Show("[SaveReader]" + ResourceService.GetString(ex.Message));
                 SetDynamicInfo("UnableToLoadSavegame");
             }
         }
@@ -552,7 +555,7 @@ namespace GothicSaveEditor.ViewModel
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
+                Logger.Error(ex);
                 MessageBox.Show(ResourceService.GetString("UnableToSearch"));
             }
         }

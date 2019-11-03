@@ -17,6 +17,7 @@ namespace GothicSaveEditor.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
         #endregion
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public string PathLine
         {
@@ -50,11 +51,11 @@ namespace GothicSaveEditor.ViewModel
         }
 
         public ObservableCollection<string> Languages { get; set; } = new ObservableCollection<string>() { "English", "Русский" };
-        private SettingsWindow settingsWindow;
+        private readonly SettingsWindow _settingsWindow;
 
         public SettingsViewModel(SettingsWindow settingsWindow)
         {
-            this.settingsWindow = settingsWindow;
+            _settingsWindow = settingsWindow;
         }
 
         public RelayCommand SelectFolderCommand
@@ -65,14 +66,14 @@ namespace GothicSaveEditor.ViewModel
                 {
                     try
                     {
-                        string path = FileService.PickGothicFolder();
+                        var path = FileService.PickGothicFolder();
                         if (path == null)
                             return;
                         PathLine = path;
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToSelectGameFolder"));
                     }
                 });
@@ -86,7 +87,7 @@ namespace GothicSaveEditor.ViewModel
             {
                 return new RelayCommand(obj =>
                 {
-                    settingsWindow.Close();
+                    _settingsWindow.Close();
                 });
             }
         }
