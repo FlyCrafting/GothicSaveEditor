@@ -11,12 +11,12 @@ namespace GothicSaveTools
 {
 
     /// <summary>
-    /// Структура сейва:
+    /// Структура сейва (друг за другом):
     /// 1. Заголовок, инфа о сейве
     /// 2. Диалоги
     /// 3. MIS (дневник)
     /// 4. Обычные переменные
-    /// 5. Мусор(после определенного значения)
+    /// 5. Мусор
     /// </summary>
     public class SaveReader
     {
@@ -24,6 +24,81 @@ namespace GothicSaveTools
         private bool _dialogEnd;
         private bool _dialog = true;
         private bool _mission;
+
+        public List<GothicVariable> Read(string path)
+        {
+            var byteArray = ReadSaveBytes(path);
+            var (startIndex, lastIndex) = FindControlPoints(byteArray);
+            return ParseSaveGame(byteArray, startIndex, lastIndex);
+        }
+
+        /// <summary>
+        /// Читает сейвгейм и возвращает массив байтов
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static byte[] ReadSaveBytes(string path)
+        {
+            byte[] byteArray;
+            try
+            {
+                byteArray = File.ReadAllBytes(path); // Читаем сейв побайтово
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("SRReadBytesError", ex); // Ошибка чтения байтов файла
+            }
+
+            return byteArray;
+        }
+
+        /// <summary>
+        /// Находит точку входа - где начинаются переменные, и точку выхода - где заканчиваются переменные.
+        /// </summary>
+        /// <returns></returns>
+        private static (int, int) FindControlPoints(byte[] bytes)
+        {
+            var index = 0; // Итератор цикла
+            // Скипаем ненужную bytes в начале сейва.
+            try
+            {
+                for (; index < bytes.Length; index++)
+                {
+                    if (bytes[index] == 0x02
+                        && bytes[index + 1] == 0x00
+                        && bytes[index + 2] == 0x00
+                        && bytes[index + 3] == 0x00
+                        && bytes[index + 4] == 0x01
+                        && bytes[index + 5] == 0x00
+                        && bytes[index + 6] == 0x00
+                        && bytes[index + 7] == 0x00)
+                    {
+                        index += 8;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("SRHeaderError", ex); // Заголовок неверный, сейв сломан
+            }
+
+            int maxByte;
+            try
+            {
+                maxByte = BitConverter.ToInt32(bytes, index); // Последний байт, до которого следует читать (далее идет мусор)
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("SRMaxByteError", ex); // Ошибка чтения номера последнего байта, сейв сломан.
+            }
+            if (maxByte == 0)
+                throw new Exception("SRMaxByteError");
+            index += 4;
+
+            return (index, maxByte);
+        }
+
 
         private IEnumerable<int> TryToReadVariable(ref byte[] bytes, ref int rIndex, ref PosDict rPositions)
         {
@@ -90,7 +165,7 @@ namespace GothicSaveTools
             return arrVar;
         }
 
-        private static int ReadLength(ref byte[] bytes, ref int rIndex) //Читает 
+        private static int ReadLength(ref byte[] bytes, ref int rIndex) // Читает 
         {
             rIndex += 1;
             int length = BitConverter.ToInt16(bytes, rIndex);
@@ -127,68 +202,7 @@ namespace GothicSaveTools
             return "";
         }
 
-        /// <summary>
-        /// Читает сейвгейм и возвращает массив байтов
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        private static byte[] ReadSaveBytes(string path)
-        {
-            byte[] byteArray;
-            try
-            {
-                byteArray = File.ReadAllBytes(path); // Читаем сейв побайтово
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("ReadBytesError", ex); // Ошибка чтения байтов файла
-            }
-
-            return byteArray;
-        }
-
-        /// <summary>
-        /// Находит точку входа - где начинаются переменные, и точку выхода - где заканчиваются переменные.
-        /// </summary>
-        /// <returns></returns>
-        private static (int, int) FindControlPoints(byte[] bytes)
-        {
-            var index = 0; // Итератор цикла
-            // Скипаем ненужную bytes в начале сейва.
-            while (index < bytes.Length)
-            {
-                if (bytes[index] == 0x02
-                    && bytes[index + 1] == 0x00
-                    && bytes[index + 2] == 0x00
-                    && bytes[index + 3] == 0x00
-                    && bytes[index + 4] == 0x01
-                    && bytes[index + 5] == 0x00
-                    && bytes[index + 6] == 0x00
-                    && bytes[index + 7] == 0x00)
-                {
-                    break;
-                }
-                index++;
-            }
-            index += 8; // После того как скипнули начальную ненужную часть, нужно скипнуть следующие байты: 02 00 00 00 01 00 00 00
-
-            int maxByte;
-            try
-            {
-                maxByte = BitConverter.ToInt32(bytes, index); // Последний байт, до которого следует читать (далее идет мусор)
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("MaxByteError", ex); // Ошибка чтения номера последнего байта, сейвгейм сломан.
-            }
-            if (maxByte == 0)
-                throw new Exception("MaxByteError");
-            index += 4;
-
-            return (index, maxByte);
-        }
-
-        private List<GothicVariable> ParseSaveGame(byte[] byteArray, int startIndex, int maxIndex)
+        private List<GothicVariable> ParseSaveGame(byte[] byteArray, int startIndex, int lastIndex)
         {
             var needToReadValue = false;
             var varname = ""; // Название текущей переменной
@@ -198,7 +212,7 @@ namespace GothicSaveTools
             var variablesList = new List<GothicVariable>();
 
             // Начинаем парсить переменные!
-            for (var index = startIndex; index < maxIndex; index++)
+            for (var index = startIndex; index < lastIndex; index++)
             {
                 if (byteArray[index] == 0x12) // Начало значения переменной
                 {
@@ -263,18 +277,11 @@ namespace GothicSaveTools
             }
             if (variablesList.Count == 0)
             {
-                throw new Exception("EmptyVariablesList");
+                throw new Exception("SREmptyVariablesList");
             }
 
             variablesList.Sort(new VariablesComparer());
             return variablesList;
-        }
-
-        public List<GothicVariable> Read(string path)
-        {
-            var byteArray = ReadSaveBytes(path);
-            var (startIndex, maxIndex) = FindControlPoints(byteArray);
-            return ParseSaveGame(byteArray, startIndex, maxIndex);
         }
     }
 }

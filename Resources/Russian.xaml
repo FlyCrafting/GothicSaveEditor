@@ -51,9 +51,11 @@
 
 
     <!-- Save Reader  -->
-    <system:String x:Key="ReadBytesError">Не удалось считать байты с файла сохранения!</system:String>
-    <system:String x:Key="MaxByteError">Не удалось считать адрес последнего байта с файла сохранения!</system:String>
-    <system:String x:Key="EmptyVariablesList">Список значений пуст!</system:String>
+    <system:String x:Key="SRHeaderError">Не удалось прочитать заголовок из файла сохранения!</system:String>
+    <system:String x:Key="SRReadBytesError">Не удалось считать байты из файла сохранения!</system:String>
+    <system:String x:Key="SRMaxByteError">Не удалось считать адрес последнего байта из файла сохранения!</system:String>
+    <system:String x:Key="SREmptyVariablesList">Список значений пуст!</system:String>
+    <system:String x:Key="SaveIsBrokenText">Вероятнее всего, файл сохранения сломан!</system:String>
 
 
     <system:String x:Key="UnableToSaveSavegame">Не удалось изменить сохранение игры! Убедитесь что у вас есть доступ к файлу.</system:String>

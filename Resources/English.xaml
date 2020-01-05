@@ -49,11 +49,12 @@
     <system:String x:Key="UnableToLoadSettings">Unable to load settings! Use default.</system:String>
 
 
-    <!-- Save Reader  -->
-
-    <system:String x:Key="ReadBytesError">Unable to read bytes from savegame file!</system:String>
-    <system:String x:Key="MaxByteError">Unable to read last byte address from savegame file!</system:String>
-    <system:String x:Key="EmptyVariablesList">Variables list is empty!</system:String>
+    <!-- SaveReader.cs  -->
+    <system:String x:Key="SRHeaderError">Unable to read header from savegame file!</system:String>
+    <system:String x:Key="SRReadBytesError">Unable to read bytes from savegame file!</system:String>
+    <system:String x:Key="SRMaxByteError">Unable to read last byte from savegame file!</system:String>
+    <system:String x:Key="SREmptyVariablesList">Variables list is empty!</system:String>
+    <system:String x:Key="SaveIsBrokenText">Savegame is probably broken!</system:String>
     
 
     <system:String x:Key="UnableToSaveSavegame">Unable to edit savegame! Make sure that you have access to the file.</system:String>

@@ -487,7 +487,7 @@ namespace GothicSaveEditor.ViewModel
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show("[SaveReader]" + ResourceService.GetString(ex.Message));
+                MessageBox.Show(ResourceService.GetString("SaveIsBrokenText") + "\n" +  ResourceService.GetString(ex.Message));
                 SetDynamicInfo("UnableToLoadSavegame");
             }
         }
