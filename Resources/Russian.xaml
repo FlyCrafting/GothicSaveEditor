@@ -6,7 +6,6 @@
 
     <!-- Main window -->
     <system:String x:Key="MainWindow">Редактор сохранений Готики</system:String>
-
     <system:String x:Key="Savegame">Файл</system:String>
     <system:String x:Key="Open">Открыть(Ctrl+A)</system:String>
     <system:String x:Key="Save">Сохранить(Ctrl+S)</system:String>
@@ -21,9 +20,6 @@
     
     <system:String x:Key="Settings">Настройки</system:String>
     <system:String x:Key="About">О Программе</system:String>
-    <system:String x:Key="AutoSearch">Авто-Поиск</system:String>
-
-    <system:String x:Key="Search">Поиск</system:String>
 
     <system:String x:Key="Variable">Переменная</system:String>
     <system:String x:Key="Value">Значение</system:String>
@@ -87,7 +83,7 @@
     <system:String x:Key="ImportingVariables">Импортируются переменные...</system:String>
     <system:String x:Key="ExportingVariables">Экспортируются переменные...</system:String>
     <system:String x:Key="BackupCreated">Резервная копия была успешно создана! </system:String>
-    <system:String x:Key="SavedSucessfully">Сохранение игры было успешно сохранено!</system:String>
+    <system:String x:Key="SavedSucessfully">Успешно сохранено!</system:String>
     <system:String x:Key="UnableToLoadSavegame">Не удалось загрузить сохранение игры!</system:String>
     <system:String x:Key="NoNeedToSave">Сохранение не требуется. Файл не был изменен.</system:String>
     <system:String x:Key="VariablesExportedSucessfully">Переменные были успешно экспортированы!</system:String>

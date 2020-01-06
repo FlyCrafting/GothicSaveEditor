@@ -69,7 +69,6 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Text="{Binding SearchLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent"/>
-                <!--<Button Grid.Column="1" MinWidth="75" Content="{DynamicResource Search}" FontSize="14" Command="{Binding SearchCommand}" Background="Transparent"/> -->
             </Grid>
         </Grid>
 

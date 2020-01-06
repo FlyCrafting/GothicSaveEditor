@@ -63,19 +63,12 @@ namespace GothicSaveEditor.ViewModel
             }
         }
 
-
-        /*public bool AutoSearch
+        public void UpdateVarCount()
         {
-            get => Settings.AutoSearch;
-            set
-            {
-                Settings.AutoSearch = value;
-                if (value && !SaveGameNull())
-                {
-                    Search();
-                }
-            }
-        }*/
+            var currentVarCount = DataGridVariables.Count;
+            var totalVarCount = _openedSaveGame.HasValue ? _openedSaveGame.Value.VariablesList.Count : 0;
+            RightInfoLine = $"{currentVarCount}/{totalVarCount}";
+        }
         #endregion
 
         #region Variables
@@ -183,24 +176,6 @@ namespace GothicSaveEditor.ViewModel
                     {
                         Logger.Error(ex);
                         MessageBox.Show(ResourceService.GetString("UnableToSaveSavegame"));
-                    }
-                }, a => !SaveGameNull());
-            }
-        }
-
-        public RelayCommand SearchCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        Search();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
                     }
                 }, a => !SaveGameNull());
             }
@@ -482,7 +457,7 @@ namespace GothicSaveEditor.ViewModel
                         DataGridVariables.Add(p);
                 }));
                 LeftInfoLine = _openedSaveGame.Value.FilePath;
-                RightInfoLine = _openedSaveGame.Value.VariablesList.Count.ToString();
+                UpdateVarCount();
             }
             catch (Exception ex)
             {
@@ -552,6 +527,7 @@ namespace GothicSaveEditor.ViewModel
                     foreach (var p in variables)
                         DataGridVariables.Add(p);
                 }));
+                UpdateVarCount();
             }
             catch (Exception ex)
             {

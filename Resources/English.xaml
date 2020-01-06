@@ -20,9 +20,6 @@
 
     <system:String x:Key="Settings">Settings</system:String>
     <system:String x:Key="About">About program</system:String>
-    <system:String x:Key="AutoSearch">Auto-Search</system:String>
-    
-    <system:String x:Key="Search">Search</system:String>
 
     <system:String x:Key="Variable">Variable</system:String>
     <system:String x:Key="Value">Value</system:String>
