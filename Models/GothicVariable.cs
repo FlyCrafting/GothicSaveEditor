@@ -7,6 +7,7 @@ namespace GothicSaveTools
     {
         //Для DataGrid VariableName, Value
         public string VariableName { get; }
+        private int _value;
         public int Value
         {
             get => _value;
@@ -19,7 +20,6 @@ namespace GothicSaveTools
                 }
             }
         }
-        private int _value;
 
         public bool Modified { get; private set; } = false;
 
@@ -37,8 +37,8 @@ namespace GothicSaveTools
 
         public int CompareTo(object obj)
         {
-            GothicVariable p = obj as GothicVariable;
-            return string.Compare(FullName, p.FullName);
+            var p = obj as GothicVariable;
+            return string.CompareOrdinal(FullName, p.FullName);
         }
 
         public GothicVariable(string varName, int pos, int value, int? arrayIndex = null)

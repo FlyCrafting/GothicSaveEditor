@@ -25,8 +25,8 @@ namespace GothicSaveTools
         public List<GothicVariable> Read(string path)
         {
             var byteArray = ReadSaveBytes(path);
-            var (startIndex, lastIndex) = FindControlPoints(byteArray);
-            return ParseSaveGame(byteArray, startIndex, lastIndex);
+            var controlPoints = FindControlPoints(byteArray);
+            return ParseSaveGame(byteArray, controlPoints.Item1, controlPoints.Item2);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace GothicSaveTools
         /// Находит точку входа - где начинаются переменные, и точку выхода - где заканчиваются переменные.
         /// </summary>
         /// <returns></returns>
-        private static (int, int) FindControlPoints(byte[] bytes)
+        private static Tuple<int, int> FindControlPoints(byte[] bytes)
         {
             var index = 0; // Итератор цикла
             // Скипаем ненужную bytes в начале сейва.
@@ -93,7 +93,7 @@ namespace GothicSaveTools
                 throw new Exception("SRMaxByteError");
             index += 4;
 
-            return (index, maxByte);
+            return new Tuple<int, int>(index, maxByte);
         }
 
 
