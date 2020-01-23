@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
-using GothicSaveEditor.Services;
+using GothicSaveEditor.Core.Primitives;
+using GothicSaveEditor.Core.HelpServices;
+using GothicSaveEditor.Core.Utils;
 
 namespace GothicSaveEditor.ViewModel
 {
@@ -65,7 +67,7 @@ namespace GothicSaveEditor.ViewModel
                 {
                     try
                     {
-                        var path = FileService.PickGothicFolder();
+                        var path = FileManager.PickGothicFolder();
                         if (path == null)
                             return;
                         PathLine = path;
@@ -73,7 +75,7 @@ namespace GothicSaveEditor.ViewModel
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        MessageBox.Show(ResourceService.GetString("UnableToSelectGameFolder"));
+                        MessageBox.Show(ResourceManager.GetString("UnableToSelectGameFolder"));
                     }
                 });
             }

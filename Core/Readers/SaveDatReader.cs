@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-    
-namespace GothicSaveTools
+using GothicSaveEditor.Core.Primitives;
+using GothicSaveEditor.Models;
+
+namespace GothicSaveEditor.Core.Readers
 {
 
     /// <summary>
@@ -15,7 +17,7 @@ namespace GothicSaveTools
     /// 4. Обычные переменные
     /// 5. Мусор
     /// </summary>
-    public class SaveReader
+    public class SaveDatReader
     {
         private bool _dialogBegin;
         private bool _dialogEnd;
@@ -97,23 +99,19 @@ namespace GothicSaveTools
         }
 
 
-        private IEnumerable<int> TryToReadVariable(ref byte[] bytes, ref int rIndex, ref PosDict rPositions)
+        private GothicVar TryToReadVariable(ref byte[] bytes, ref int rIndex)
         {
-            var arrVar = new int[1];
+            var values = new int[1];
+            var positions = new int[1];
+
+            var arraySize = int.MaxValue;
             var arrIteration = -1;
-            var isArray = false;
             while (bytes[rIndex] == 0x12) // Начало значения переменной
             {
-                rIndex += 2;
-
-                if (bytes[rIndex] == 0x03 // массивы типа int
-                    || bytes[rIndex] == 0xd3) // массивы типа bool
-                    isArray = true; // Фикс от 2.11.2019 на чтение переменных Готики1
-
-                rIndex += 3;
+                rIndex += 5;
                 if (bytes[rIndex] == 0x01)
                 {
-                    break; // Если 0x01 то это текст, значит мы зашли сюда по ошибке.
+                    break; // Если 0x01 то это текст, значит мы должны закончить считывание этой переменной
                 }
 
                 rIndex++;
@@ -127,28 +125,30 @@ namespace GothicSaveTools
                         _dialogBegin = false;
                     }
 
-                    if (!isArray)
-                        arrIteration = 0;
-
-                    if (arrIteration <= -1) // Для переменных если это первый блок то это длина массива
+                    positions[0] = rIndex;
+                    values[0] = BitConverter.ToInt32(bytes, rIndex);
+                    if (arrIteration == -1)
                     {
-                        arrVar = new int[bytes[rIndex]];
-                        for (var i = 0; i < arrVar.Length; i++) // Везде ставим нолики
-                        {
-                            arrVar[i] = 0;
-                        }
+                        arraySize = values[0];
                     }
-                    else if (arrIteration < arrVar.Length)
+
+                    if (arrIteration >= 0 && arrIteration < arraySize) // массив, предыдущие данные нам не нужны т.к это была длина массива.
                     {
-                        arrVar[arrIteration] = BitConverter.ToInt32(bytes, rIndex);
-                        rPositions[arrIteration] = rIndex;
+                        if (arrIteration == 0)
+                        {
+                            positions = new int[arraySize];
+                            values = new int[arraySize];
+                        }
+
+                        positions[arrIteration] = rIndex;
+                        values[arrIteration] = BitConverter.ToInt32(bytes, rIndex);
                     }
                     arrIteration++;
                 }
                 else if (bytes[rIndex - 1] == 0x06) // Начало диалога
                 {
-                    arrVar[0] = BitConverter.ToInt32(bytes, rIndex);
-                    rPositions[0] = rIndex;
+                    values[0] = BitConverter.ToInt32(bytes, rIndex);
+                    positions[0] = rIndex;
                 }
                 rIndex += 4; // Integer занимает 4 байта
 
@@ -156,10 +156,10 @@ namespace GothicSaveTools
                 if (_dialog && bytes[rIndex - 5] == 0x06)
                 {
                     _dialogBegin = true;
-                    return arrVar;
+                    return new GothicVar(positions, values);
                 }
             }
-            return arrVar;
+            return new GothicVar(positions, values);
         }
 
         private static int ReadLength(ref byte[] bytes, ref int rIndex) // Читает 
@@ -203,9 +203,8 @@ namespace GothicSaveTools
         {
             var needToReadValue = false;
             var varname = ""; // Название текущей переменной
-            var values = new List<int>();
+            var gothicVar = new GothicVar();
 
-            var positions = new PosDict(); // Служит для закрепления позиции за каждой переменной
             var variablesList = new List<GothicVariable>();
 
             // Начинаем парсить переменные!
@@ -215,29 +214,28 @@ namespace GothicSaveTools
                 {
                     if (_dialog) // В диалоге сначала идет чтение значения и только потом строка
                     {
-                        values = TryToReadVariable(ref byteArray, ref index, ref positions).ToList(); // Передача идет по ссылке
+                        gothicVar = TryToReadVariable(ref byteArray, ref index); // Передача идет по ссылке
                     }
                     else
                     {
                         // ReSharper disable once InvertIf
                         if (needToReadValue && varname.Trim().Length > 0) // Уже считали название переменной, считываем ее значение
                         {
-                            values = TryToReadVariable(ref byteArray, ref index, ref positions).ToList(); // Читаем значение
+                            gothicVar = TryToReadVariable(ref byteArray, ref index); // Читаем значение
                             if (_dialogEnd) // Если достигнут конец, переменная не будет сохранена, поскольку последний слайд получает неверное значение
                             {
                                 _dialogEnd = false;
                             }
                             else
                             {
-                                if (values.Count == 1)
+                                if (gothicVar.Values.Length == 1)
                                 {
-                                    variablesList.Add(new GothicVariable(varname, positions[0], values[0]));
+                                    variablesList.Add(new GothicVariable(varname, gothicVar.Positions[0], gothicVar.Values[0]));
                                 }
-                                else if (values.Count > 1)
+                                else if (gothicVar.Values.Length > 1)
                                 {
-                                    variablesList.AddRange(values.Select((t, ki) => new GothicVariable(varname, positions[ki], t, ki)));
+                                    variablesList.AddRange(gothicVar.Values.Select((t, ki) => new GothicVariable(varname, gothicVar.Positions[ki], t, ki)));
                                 }
-                                positions.Clear();
                             }
                             index--; //one back because of the while conditional i ++
                             needToReadValue = false; // Новая переменная строка должна читаться, пока не будет прочитано значение
@@ -255,15 +253,14 @@ namespace GothicSaveTools
                     {
                         if (_dialog && _dialogBegin) // В диалоговом режиме центрирование переменной заканчивается, поэтому переменная генерируется здесь
                         {
-                            if (values.Count == 1)
+                            if (gothicVar.Values.Length == 1)
                             {
-                                variablesList.Add(new GothicVariable(varname, positions[0], values[0]));
+                                variablesList.Add(new GothicVariable(varname, gothicVar.Positions[0], gothicVar.Values[0]));
                             }
-                            else if (values.Count > 1)
+                            else if (gothicVar.Values.Length > 1)
                             {
-                                variablesList.AddRange(values.Select((t, ki) => new GothicVariable(varname, positions[ki], t, ki)));
+                                variablesList.AddRange(gothicVar.Values.Select((t, ki) => new GothicVariable(varname, gothicVar.Positions[ki], t, ki)));
                             }
-                            positions.Clear();
                         }
                         else
                         {

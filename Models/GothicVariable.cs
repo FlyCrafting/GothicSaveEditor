@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Windows;
 
-namespace GothicSaveTools
+namespace GothicSaveEditor.Models
 {
     public class GothicVariable: IComparable
     {
@@ -21,7 +20,7 @@ namespace GothicSaveTools
             }
         }
 
-        public bool Modified { get; private set; } = false;
+        public bool Modified { get; private set; }
 
         public void Saved()
         {

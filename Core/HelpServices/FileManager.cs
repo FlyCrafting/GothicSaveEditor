@@ -2,10 +2,11 @@
 using Microsoft.Win32;
 using System.IO;
 using System;
+using GothicSaveEditor.Core.Utils;
 
-namespace GothicSaveEditor.Services
+namespace GothicSaveEditor.Core.HelpServices
 {
-    public static class FileService
+    public static class FileManager
     {
         private const string FileName = "SAVEDAT"; //FileName
         private const string DefaultExt = "SAVEDAT"; //File Extensinon

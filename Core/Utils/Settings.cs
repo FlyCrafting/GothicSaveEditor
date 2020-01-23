@@ -1,14 +1,13 @@
-﻿using GothicSaveEditor.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using NLog;
+using GothicSaveEditor.Core.HelpServices;
 
-namespace GothicSaveEditor
+namespace GothicSaveEditor.Core.Utils
 {
     public static class Settings
     {
@@ -97,7 +96,7 @@ namespace GothicSaveEditor
                 App.SetLanguage(_language);
             }
             if (_exceptionDuringLoading)
-                MessageBox.Show(ResourceService.GetString("UnableToLoadSettings"));
+                MessageBox.Show(ResourceManager.GetString("UnableToLoadSettings"));
         }
 
 
@@ -172,7 +171,7 @@ namespace GothicSaveEditor
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show(ResourceService.GetString("UnableToSaveSettings"));
+                MessageBox.Show(ResourceManager.GetString("UnableToSaveSettings"));
             }
         }
 
