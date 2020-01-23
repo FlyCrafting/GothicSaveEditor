@@ -8,9 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using GothicSaveEditor.Core.Primitives;
 using GothicSaveEditor.Core.Readers;
-using GothicSaveEditor.Core.HelpServices;
+using GothicSaveEditor.Core.Services;
 using GothicSaveEditor.Core.Utils;
 using NLog;
 
@@ -38,12 +39,9 @@ namespace GothicSaveEditor.ViewModels
                 var isChanged = false;
                 Dispatcher.Invoke(() =>
                 {
-                    foreach (var t in DataGridVariables)
+                    if (DataGridVariables.Any(t => t.Modified))
                     {
-                        if (t.Modified)
-                        {
-                            isChanged = true;
-                        }
+                        isChanged = true;
                     }
                 });
                 return isChanged;
@@ -108,10 +106,9 @@ namespace GothicSaveEditor.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
-                    if (!IsSaveNull)
-                    {
-                        CloseSavegame();
-                    }
+                    if (!IsSaveNull && !CanCloseSave)
+                        return;
+
                     string saveGamePath = null;
                     try
                     {
@@ -129,11 +126,12 @@ namespace GothicSaveEditor.ViewModels
                     if (saveGamePath.Trim().Length == 0 || !File.Exists(saveGamePath))
                     {
                         MessageBox.Show(ResourceManager.GetString("UnableToLoadSavegameWrongPath"));
+                        return;
                     }
+                    ClearWorkSpace();
                     LeftInfoLine = ResourceManager.GetString("LoadingSaveGame");
-                    DataGridVariables.Clear();
-                    Task.Run(() => LoadSaveGame(saveGamePath)).ContinueWith(a=>LoadScripts());
-                }, a => !IsSaveModified);
+                    Task.Run(() => LoadSaveGame(saveGamePath)); //.ContinueWith(a=>LoadScripts());
+                }, a => true);
             }
         }
 
@@ -203,7 +201,8 @@ namespace GothicSaveEditor.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
-                    CloseSavegame();
+                    if (CanCloseSave)
+                        ClearWorkSpace();
                 }, a => !IsSaveNull);
             }
         }
@@ -265,25 +264,27 @@ namespace GothicSaveEditor.ViewModels
             }
         }
 
-        void CloseSavegame()
+        bool CanCloseSave =>
+            (!IsSaveModified
+             || MessageBox.Show(ResourceManager.GetString("SavegameWasModified"),
+                 ResourceManager.GetString("Warning"), MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
+             MessageBoxResult.Yes);
+
+        void ClearWorkSpace()
         {
             try
             {
-                if (!IsSaveModified || MessageBox.Show(ResourceManager.GetString("SavegameWasModified"), ResourceManager.GetString("Warning"), MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                {
-                    DataGridVariables.Clear();
-                    Scripts.Clear();
-                    _openedSaveGame = null;
-                    LeftInfoLine = "";
-                    RightInfoLine = "";
-                    SearchLine = "";
-                }
+                DataGridVariables.Clear();
+                Scripts.Clear();
+                _openedSaveGame = null;
+                LeftInfoLine = "";
+                RightInfoLine = "";
+                SearchLine = "";
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
             }
-
         }
 
 
@@ -508,11 +509,11 @@ namespace GothicSaveEditor.ViewModels
             {
                 var fstr = new FileStream(path, FileMode.Open, FileAccess.Write);
                 var w = new BinaryWriter(fstr);
-                foreach (var t in DataGridVariables.Where(t => !t.Modified))
+                foreach (var t in DataGridVariables.Where(t => t.Modified))
                 {
                     w.Seek(t.Position, 0);
                     w.Write(t.Value);
-                    t.Saved();
+                    t.SetUnModified();
                 }
                 w.Close();
                 fstr.Close();

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using GothicSaveEditor.Core.Primitives;
-using GothicSaveEditor.Core.HelpServices;
+using GothicSaveEditor.Core.Services;
 using GothicSaveEditor.Core.Utils;
 
 namespace GothicSaveEditor.ViewModel

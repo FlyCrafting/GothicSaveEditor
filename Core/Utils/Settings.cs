@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using GothicSaveEditor.Core.HelpServices;
+using GothicSaveEditor.Core.Services;
 
 namespace GothicSaveEditor.Core.Utils
 {

@@ -4,7 +4,7 @@ using System.IO;
 using System;
 using GothicSaveEditor.Core.Utils;
 
-namespace GothicSaveEditor.Core.HelpServices
+namespace GothicSaveEditor.Core.Services
 {
     public static class FileManager
     {

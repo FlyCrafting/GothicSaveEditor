@@ -22,7 +22,8 @@ namespace GothicSaveEditor.Models
 
         public bool Modified { get; private set; }
 
-        public void Saved()
+
+        public void SetUnModified()
         {
             Modified = false;
         }

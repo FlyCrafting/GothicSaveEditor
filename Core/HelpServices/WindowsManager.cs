@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace GothicSaveEditor.Core.HelpServices
+namespace GothicSaveEditor.Core.Services
 {
     public static class WindowsManager
     {
