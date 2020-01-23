@@ -1,36 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using GothicSaveEditor.Models;
 
-namespace GothicSaveTools
+namespace GothicSaveEditor.Core.Primitives
 {
-    public class VariablesComparer: IComparer<GothicVariable>
+    public class VariablesComparer : IComparer<GothicVariable>
     {
         private enum ChunkType { Alphanumeric, Numeric };
         private bool InChunk(char ch, char otherCh)
         {
-            ChunkType type = ChunkType.Alphanumeric;
+            var type = ChunkType.Alphanumeric;
             if (char.IsDigit(otherCh))
             {
                 type = ChunkType.Numeric;
             }
-            if ((type == ChunkType.Alphanumeric && char.IsDigit(ch))
-                || (type == ChunkType.Numeric && !char.IsDigit(ch)))
-            {
-                return false;
-            }
-            return true;
+            return (type != ChunkType.Alphanumeric || !char.IsDigit(ch)) && (type != ChunkType.Numeric || char.IsDigit(ch));
         }
 
         public int Compare(GothicVariable x, GothicVariable y)
         {
-            String s1 = x.FullName;
-            String s2 = y.FullName;
-            if (s1 == null || s2 == null)
-            {
+            if (x == null || y == null)
                 return 0;
-            }
+            var s1 = x.FullName;
+            var s2 = y.FullName;
+            if (s1 == null || s2 == null)
+                return 0;
+
             int thisMarker = 0;
             int thatMarker = 0;
             while ((thisMarker < s1.Length) || (thatMarker < s2.Length))
@@ -83,7 +79,7 @@ namespace GothicSaveTools
                 }
                 else
                 {
-                    result = thisChunk.ToString().CompareTo(thatChunk.ToString());
+                    result = String.Compare(thisChunk.ToString(), thatChunk.ToString(), StringComparison.Ordinal);
                 }
                 if (result != 0)
                 {
@@ -93,4 +89,5 @@ namespace GothicSaveTools
             return 0;
         }
     }
+
 }

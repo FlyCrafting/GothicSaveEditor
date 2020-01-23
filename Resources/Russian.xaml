@@ -6,8 +6,7 @@
 
     <!-- Main window -->
     <system:String x:Key="MainWindow">Редактор сохранений Готики</system:String>
-    
-    <system:String x:Key="Savegame">Сейв</system:String>
+    <system:String x:Key="Savegame">Файл</system:String>
     <system:String x:Key="Open">Открыть(Ctrl+A)</system:String>
     <system:String x:Key="Save">Сохранить(Ctrl+S)</system:String>
     <system:String x:Key="SaveAs">Сохранить как(Ctrl+Shift+C)</system:String>
@@ -21,9 +20,6 @@
     
     <system:String x:Key="Settings">Настройки</system:String>
     <system:String x:Key="About">О Программе</system:String>
-    <system:String x:Key="AutoSearch">Авто-Поиск</system:String>
-
-    <system:String x:Key="Search">Поиск</system:String>
 
     <system:String x:Key="Variable">Переменная</system:String>
     <system:String x:Key="Value">Значение</system:String>
@@ -49,10 +45,14 @@
     <system:String x:Key="UnableToSaveSettings">Не удалось применить настройки! Убедитесь, что вы запустили программу с правами администратора. </system:String>
     <system:String x:Key="UnableToLoadSettings">Не удалось загрузить настройки! Используются стандартные.</system:String>
 
-    <system:String x:Key="UnableToLoadSavegameLoadError">Не удалось загрузить сохранение игры! Возможно у вас нет доступа к файлу.</system:String>
-    <system:String x:Key="UnableToLoadSavegameWrongPath">Не удалось загрузить сохранение игры! Неверный путь.</system:String>
-    <system:String x:Key="UnableToLoadSavegameItsBroken">Не удалось загрузить сохранение игры! Оно повреждено.</system:String>
-    <system:String x:Key="UnableToLoadSavegameUnknownError">Не удалось загрузить сохранение игры! Произошла неопознанная ошибка.</system:String>
+
+    <!-- Save Reader  -->
+    <system:String x:Key="SRHeaderError">Не удалось прочитать заголовок из файла сохранения!</system:String>
+    <system:String x:Key="SRReadBytesError">Не удалось считать байты из файла сохранения!</system:String>
+    <system:String x:Key="SRMaxByteError">Не удалось считать адрес последнего байта из файла сохранения!</system:String>
+    <system:String x:Key="SREmptyVariablesList">Список значений пуст!</system:String>
+    <system:String x:Key="SaveIsBrokenText">Вероятнее всего, файл сохранения сломан!</system:String>
+
 
     <system:String x:Key="UnableToSaveSavegame">Не удалось изменить сохранение игры! Убедитесь что у вас есть доступ к файлу.</system:String>
     <system:String x:Key="UnableToSaveSavegameProcess">Не удалось сохранить! Файл занят другим процессом.</system:String>
@@ -83,7 +83,7 @@
     <system:String x:Key="ImportingVariables">Импортируются переменные...</system:String>
     <system:String x:Key="ExportingVariables">Экспортируются переменные...</system:String>
     <system:String x:Key="BackupCreated">Резервная копия была успешно создана! </system:String>
-    <system:String x:Key="SavedSucessfully">Сохранение игры было успешно сохранено!</system:String>
+    <system:String x:Key="SavedSucessfully">Успешно сохранено!</system:String>
     <system:String x:Key="UnableToLoadSavegame">Не удалось загрузить сохранение игры!</system:String>
     <system:String x:Key="NoNeedToSave">Сохранение не требуется. Файл не был изменен.</system:String>
     <system:String x:Key="VariablesExportedSucessfully">Переменные были успешно экспортированы!</system:String>

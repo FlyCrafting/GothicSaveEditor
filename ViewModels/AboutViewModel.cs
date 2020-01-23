@@ -1,10 +1,11 @@
 ﻿using GothicSaveEditor.Views;
 using System.ComponentModel;
+using GothicSaveEditor.Core.Primitives;
 
 
 namespace GothicSaveEditor.ViewModels
 {
-    public class AboutViewModel:INotifyPropertyChanged
+    public class AboutViewModel: INotifyPropertyChanged
     {
         #region PropertyChanged (for binding)
         public event PropertyChangedEventHandler PropertyChanged;
@@ -14,11 +15,11 @@ namespace GothicSaveEditor.ViewModels
         }
         #endregion
 
-        AboutWindow aboutWindow;
+        private readonly AboutWindow _aboutWindow;
 
         public AboutViewModel(AboutWindow aboutWindow)
         {
-            this.aboutWindow = aboutWindow;
+            _aboutWindow = aboutWindow;
         }
 
         public RelayCommand CloseWindowCommand
@@ -27,7 +28,7 @@ namespace GothicSaveEditor.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
-                    aboutWindow.Close();
+                    _aboutWindow.Close();
                 });
             }
         }

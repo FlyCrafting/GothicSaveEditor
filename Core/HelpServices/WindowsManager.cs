@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Windows;
 
-namespace GothicSaveEditor.Services
+namespace GothicSaveEditor.Core.Services
 {
-    public static class WindowsService
+    public static class WindowsManager
     {
         public static bool IsWindowOpen<T>(string name = "") where T : Window
         {

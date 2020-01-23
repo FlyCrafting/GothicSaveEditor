@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 
-namespace GothicSaveEditor.Services
+namespace GothicSaveEditor.Core.Services
 {
-    public static class DispatchService
+    public static class Dispatcher
     {
         public static void Invoke(Action action)
         {
-            Dispatcher dispatchObject = Application.Current.Dispatcher;
+            System.Windows.Threading.Dispatcher dispatchObject = Application.Current.Dispatcher;
             if (dispatchObject == null || dispatchObject.CheckAccess())
             {
                 action();

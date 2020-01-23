@@ -20,9 +20,6 @@
 
     <system:String x:Key="Settings">Settings</system:String>
     <system:String x:Key="About">About program</system:String>
-    <system:String x:Key="AutoSearch">Auto-Search</system:String>
-    
-    <system:String x:Key="Search">Search</system:String>
 
     <system:String x:Key="Variable">Variable</system:String>
     <system:String x:Key="Value">Value</system:String>
@@ -48,10 +45,14 @@
     <system:String x:Key="UnableToSaveSettings">Unable to apply current settings! Make sure that you run the program with administrator rights.</system:String>
     <system:String x:Key="UnableToLoadSettings">Unable to load settings! Use default.</system:String>
 
-    <system:String x:Key="UnableToLoadSavegameLoadError">Unable to load savegame! Make sure that you have access to the file.</system:String>
-    <system:String x:Key="UnableToLoadSavegameWrongPath">Unable to load savegame! Wrong path.</system:String>
-    <system:String x:Key="UnableToLoadSavegameItsBroken">Unable to load savegame! It is broken.</system:String>
-    <system:String x:Key="UnableToLoadSavegameUnknownError">Cannot load savegame! An unknown error happened.</system:String>
+
+    <!-- SaveReader.cs  -->
+    <system:String x:Key="SRHeaderError">Unable to read header from savegame file!</system:String>
+    <system:String x:Key="SRReadBytesError">Unable to read bytes from savegame file!</system:String>
+    <system:String x:Key="SRMaxByteError">Unable to read last byte from savegame file!</system:String>
+    <system:String x:Key="SREmptyVariablesList">Variables list is empty!</system:String>
+    <system:String x:Key="SaveIsBrokenText">Savegame is probably broken!</system:String>
+    
 
     <system:String x:Key="UnableToSaveSavegame">Unable to edit savegame! Make sure that you have access to the file.</system:String>
     <system:String x:Key="UnableToSaveSavegameProcess">Unable to save savegame! File is used by another process.</system:String>

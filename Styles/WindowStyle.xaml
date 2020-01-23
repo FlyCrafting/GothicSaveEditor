@@ -3,10 +3,15 @@
                     xmlns:local="clr-namespace:GothicSaveEditor"
                     x:Class="GothicSaveEditor.Styles.WindowStyle">
 
-    <Style x:Key="HeaderTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextStyle}">
-        <Setter Property="FontSize" Value="18"></Setter>
+    <SolidColorBrush x:Key="BrushColor" Color="#CC000000" />
+    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
+    <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+
+
+    <Style x:Key="HeaderTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="Foreground" Value="{StaticResource BrushColor}" />
-        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}"> 
@@ -62,7 +67,10 @@
                                                 BorderBrush="#22ffffff"
                                                 BorderThickness="0">
                                             <Grid>
-                                                <TextBlock HorizontalAlignment="Left" Margin="10 3 0 0" Style="{DynamicResource HeaderTextStyle}">Gothic Save Editor</TextBlock>
+                                                <StackPanel Margin="10 3 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Image Source="pack://application:,,,/GothicSaveEditor;component/Images/gse_icon.ico" Width="18" Height="18"></Image>
+                                                    <TextBlock Text="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left" Margin="5 3 0 0" Style="{DynamicResource HeaderTextStyle}"></TextBlock>
+                                                </StackPanel>
                                                 <Grid HorizontalAlignment="Right" VerticalAlignment="Top">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"></ColumnDefinition>

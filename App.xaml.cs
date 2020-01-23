@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using GothicSaveEditor.Core.Utils;
 
 namespace GothicSaveEditor
 {
@@ -14,9 +15,9 @@ namespace GothicSaveEditor
             var dict = new ResourceDictionary();
             switch (lang)
             {
-                case "Russian":
+                case "Русский":
                     dict.Source = new Uri("Resources/Russian.xaml", UriKind.Relative);
-                    Settings.Language = "Russian";
+                    Settings.Language = "Русский";
                     break;
                 default:
                     dict.Source = new Uri("Resources/English.xaml", UriKind.Relative);
