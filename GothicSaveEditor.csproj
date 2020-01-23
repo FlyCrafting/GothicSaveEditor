@@ -97,30 +97,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Primitives\SaveGame.cs" />
     <Compile Include="Core\Utils\Extensions.cs" />
     <Compile Include="Core\Primitives\VariablesComparer.cs" />
     <Compile Include="Core\Primitives\GothicVar.cs" />
     <Compile Include="Models\Script.cs" />
-    <Compile Include="Core\HelpServices\Dispatcher.cs" />
-    <Compile Include="Core\HelpServices\FileManager.cs" />
-    <Compile Include="Core\HelpServices\ResourceManager.cs" />
+    <Compile Include="Core\Services\Dispatcher.cs" />
+    <Compile Include="Core\Services\FileService.cs" />
+    <Compile Include="Core\Services\ResourceService.cs" />
     <Compile Include="Core\Utils\Settings.cs" />
     <Compile Include="Styles\StylesExtensions.cs" />
     <Compile Include="Styles\WindowStyle.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.Commands.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaveGame.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\GothicVariable.cs" />
     <Compile Include="Core\Readers\SaveDatReader.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Core\HelpServices\WindowsManager.cs" />
+    <Compile Include="Core\Services\WindowsService.cs" />
     <Page Include="Styles\WindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -196,6 +197,8 @@
   <ItemGroup>
     <Resource Include="Images\gse_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Managers" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

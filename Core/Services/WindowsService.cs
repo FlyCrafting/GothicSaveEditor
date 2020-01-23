@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace GothicSaveEditor.Core.Services
 {
-    public static class WindowsManager
+    public static class WindowsService
     {
         public static bool IsWindowOpen<T>(string name = "") where T : Window
         {

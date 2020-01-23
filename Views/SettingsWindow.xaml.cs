@@ -1,5 +1,5 @@
-﻿using GothicSaveEditor.ViewModel;
-using System.Windows;
+﻿using System.Windows;
+using GothicSaveEditor.ViewModels;
 
 namespace GothicSaveEditor
 {

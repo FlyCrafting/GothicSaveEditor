@@ -17,9 +17,8 @@ using NLog;
 
 namespace GothicSaveEditor.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public partial class MainViewModel : INotifyPropertyChanged
     {
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         #region PropertyChanged (for binding)
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string prop = "")
@@ -27,8 +26,15 @@ namespace GothicSaveEditor.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
         #endregion
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        
+        public ObservableCollection<GothicVariable> DataGridVariables { get; set; } = new ObservableCollection<GothicVariable>();
+        public ObservableCollection<Script> Scripts { get; set; } = new ObservableCollection<Script>();
 
-        #region Properties
+        private SaveGame? _openedSaveGame;
+
+        private bool _dynamicInfo;
+
         private bool IsSaveNull => _openedSaveGame == null;
         private bool IsSaveModified
         {
@@ -55,10 +61,7 @@ namespace GothicSaveEditor.ViewModels
             set
             {
                 _searchLine = value;
-                if (!IsSaveNull)
-                {
-                    Search();
-                }
+                Search();
                 OnPropertyChanged();
             }
         }
@@ -84,192 +87,17 @@ namespace GothicSaveEditor.ViewModels
                 OnPropertyChanged();
             }
         }
-        #endregion
-
-        #region Variables
-        public ObservableCollection<GothicVariable> DataGridVariables { get; set; } = new ObservableCollection<GothicVariable>();
-        public ObservableCollection<Script> Scripts { get; set; } = new ObservableCollection<Script>();
-
-        private SaveGame? _openedSaveGame;
-
-        private bool _dynamicInfo;
-
-        // ReSharper disable once UnusedMember.Global
+        
         public string GseVersion => Settings.GseVersion;
 
-        #endregion
-
-        #region Commands
-        public RelayCommand OpenCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    if (!IsSaveNull && !CanCloseSave)
-                        return;
-
-                    string saveGamePath = null;
-                    try
-                    {
-                        //Trying to get savegame path using windows dialog.
-                        saveGamePath = FileManager.ImportSave();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToLoadSavegameLoadError"));
-                    }
-                    //If user didn't select path - return.
-                    if (saveGamePath == null)
-                        return;
-                    if (saveGamePath.Trim().Length == 0 || !File.Exists(saveGamePath))
-                    {
-                        MessageBox.Show(ResourceManager.GetString("UnableToLoadSavegameWrongPath"));
-                        return;
-                    }
-                    ClearWorkSpace();
-                    LeftInfoLine = ResourceManager.GetString("LoadingSaveGame");
-                    Task.Run(() => LoadSaveGame(saveGamePath)); //.ContinueWith(a=>LoadScripts());
-                }, a => true);
-            }
-        }
-
-
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        if (Settings.AutoBackup)
-                        {
-                            File.Copy(_openedSaveGame.Value.FilePath, _openedSaveGame.Value.FilePath + ".bak", true);
-                        }
-                        WriteVariablesToFile();
-                        SetDynamicInfo("SavedSucessfully");
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToSaveSavegame"));
-                    }
-                }, a=> IsSaveModified);
-            }
-        }
-
-        public RelayCommand SaveAsCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        string path = FileManager.ExportSave();
-                        if (path == null)
-                            return;
-                        try
-                        {
-                            File.Copy(_openedSaveGame.Value.FilePath, path, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ex.HResult == -2147024864)
-                            {
-                                Logger.Error(ex);
-                                MessageBox.Show(ResourceManager.GetString("UnableToSaveSavegameProcess"));
-                            }
-                        }
-                        WriteVariablesToFile(path);
-                        SetDynamicInfo("SavedSucessfully");
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToSaveSavegame"));
-                    }
-                }, a => !IsSaveNull);
-            }
-        }
-
-        public RelayCommand CloseCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    if (CanCloseSave)
-                        ClearWorkSpace();
-                }, a => !IsSaveNull);
-            }
-        }
-
-
-        public RelayCommand SettingsCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        WindowsManager.OpenSettings();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
-                });
-            }
-        }
-
-        public RelayCommand MakeBackupCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        File.Copy(_openedSaveGame.Value.FilePath, _openedSaveGame.Value.FilePath + ".bak", true);
-                        SetDynamicInfo("BackupCreated");
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToBackup"));
-                    }
-                }, a => !IsSaveNull);
-            }
-        }
-
-        public RelayCommand AboutCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        WindowsManager.OpenAbout();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
-                });
-            }
-        }
 
         bool CanCloseSave =>
             (!IsSaveModified
-             || MessageBox.Show(ResourceManager.GetString("SavegameWasModified"),
-                 ResourceManager.GetString("Warning"), MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
+             || MessageBox.Show(ResourceServices.GetString("SavegameWasModified"),
+                 ResourceServices.GetString("Warning"), MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
              MessageBoxResult.Yes);
 
+        #region HelpMethods
         void ClearWorkSpace()
         {
             try
@@ -288,41 +116,37 @@ namespace GothicSaveEditor.ViewModels
         }
 
 
-        //Not useful command, only for checking ImportScript availability
-        public RelayCommand ApplyScriptCommands => new RelayCommand(obj =>{}, a => !IsSaveNull && Scripts.Count > 0);
-
-        public RelayCommand ExportVariablesCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        string path = FileManager.ExportVariables();
-                        if (path == null)
-                            return;
-                        LeftInfoLine = ResourceManager.GetString("ExportingVariables");
-                        Task.Run(() => ExportVariablesTask(path));
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToExportVariables"));
-                    }
-                }, a => !IsSaveNull);
-            }
-        }
-
-        #endregion
-
-
         public void UpdateVarCount()
         {
             var currentVarCount = DataGridVariables.Count;
             var totalVarCount = _openedSaveGame.HasValue ? _openedSaveGame.Value.VariablesList.Count : 0;
             RightInfoLine = $"{currentVarCount}/{totalVarCount}";
         }
+        
+        private void SetDynamicInfo(string text, bool setToPath=false)
+        {
+            if (_dynamicInfo)
+                return;
+            _dynamicInfo = true;
+            string backup = "";
+            if (setToPath && !IsSaveNull)
+            {
+                backup = _openedSaveGame.Value.FilePath;
+            }
+            else
+            {
+                backup = LeftInfoLine;
+            }
+            LeftInfoLine = ResourceServices.GetString(text);
+            Task.Delay(Settings.InfoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
+        }
+
+        private void ResetDynamicInfo(string toText)
+        {
+            LeftInfoLine = toText;
+            _dynamicInfo = false;
+        }
+        #endregion
 
         private void ExportVariablesTask(string path)
         {
@@ -339,7 +163,7 @@ namespace GothicSaveEditor.ViewModels
         {
             try
             {
-                LeftInfoLine = ResourceManager.GetString("ImportingVariables");
+                LeftInfoLine = ResourceServices.GetString("ImportingVariables");
                 var changesList = new StringBuilder();
                 var notFoundVariables = new StringBuilder();
                 var fastVariables = new Dictionary<string, GothicVariable>();
@@ -369,21 +193,21 @@ namespace GothicSaveEditor.ViewModels
                 SearchLine = "";
                 if (changesList.Length != 0)
                 {
-                    MessageBox.Show(ResourceManager.GetString("VariablesWereImported") + "\n\n" + ResourceManager.GetString("ScriptActionList") + changesList);
+                    MessageBox.Show(ResourceServices.GetString("VariablesWereImported") + "\n\n" + ResourceServices.GetString("ScriptActionList") + changesList);
                 }
                 else
                 {
-                    MessageBox.Show(ResourceManager.GetString("VariablesWereNotImported"));
+                    MessageBox.Show(ResourceServices.GetString("VariablesWereNotImported"));
                 }
                 if (notFoundVariables.Length > 0)
                 {
-                    MessageBox.Show(ResourceManager.GetString("NotFoundVariables") + notFoundVariables);
+                    MessageBox.Show(ResourceServices.GetString("NotFoundVariables") + notFoundVariables);
                 }
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show(ResourceManager.GetString("UnableToImportVariables"));
+                MessageBox.Show(ResourceServices.GetString("UnableToImportVariables"));
             }
             finally
             {
@@ -444,32 +268,8 @@ namespace GothicSaveEditor.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show(ResourceManager.GetString("UnableToLoadScripts"));
+                MessageBox.Show(ResourceServices.GetString("UnableToLoadScripts"));
             }
-        }
-
-        private void SetDynamicInfo(string text, bool setToPath=false)
-        {
-            if (_dynamicInfo)
-                return;
-            _dynamicInfo = true;
-            string backup = "";
-            if (setToPath && !IsSaveNull)
-            {
-                backup = _openedSaveGame.Value.FilePath;
-            }
-            else
-            {
-                backup = LeftInfoLine;
-            }
-            LeftInfoLine = ResourceManager.GetString(text);
-            Task.Delay(Settings.InfoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
-        }
-
-        private void ResetDynamicInfo(string toText)
-        {
-            LeftInfoLine = toText;
-            _dynamicInfo = false;
         }
 
         private void LoadSaveGame(string saveGamePath)
@@ -477,7 +277,7 @@ namespace GothicSaveEditor.ViewModels
             //Path is always not null here!
             try
             {
-                List<GothicVariable> tempVariables = new SaveDatReader().Read(saveGamePath);
+                var tempVariables = SaveDatReader.Read(saveGamePath);
                 if (tempVariables == null)
                     return;
                 _openedSaveGame = new SaveGame(saveGamePath, tempVariables);
@@ -494,16 +294,15 @@ namespace GothicSaveEditor.ViewModels
             {
                 Logger.Error(ex);
                 SetDynamicInfo("UnableToLoadSavegame");
-                MessageBox.Show(ResourceManager.GetString("SaveIsBrokenText") + "\n" +  ResourceManager.GetString(ex.Message));
+                MessageBox.Show(ResourceServices.GetString("SaveIsBrokenText") + "\n" +  ResourceServices.GetString(ex.Message));
             }
         }
 
-        private void WriteVariablesToFile(string path = null)
+        private void WriteVariablesToFile(string path)
         {
-            if (path == null)
-            {
-                path = _openedSaveGame.Value.FilePath;
-            }
+            if (IsSaveNull)
+                return;
+            
             // No try here. It's handled before.
             Dispatcher.Invoke(() =>
             {
@@ -519,8 +318,7 @@ namespace GothicSaveEditor.ViewModels
                 fstr.Close();
             });
         }
-
-
+        
         private void Search()
         {
             if (IsSaveNull)
@@ -528,18 +326,18 @@ namespace GothicSaveEditor.ViewModels
             try
             {
                 var variables = _openedSaveGame.Value.VariablesList.Search(SearchLine);
-                Dispatcher.Invoke(new Action(() =>
+                Dispatcher.Invoke(() =>
                 {
                     DataGridVariables.Clear();
                     foreach (var p in variables)
                         DataGridVariables.Add(p);
-                }));
+                });
                 UpdateVarCount();
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show(ResourceManager.GetString("UnableToSearch"));
+                MessageBox.Show(ResourceServices.GetString("UnableToSearch"));
             }
         }
     }

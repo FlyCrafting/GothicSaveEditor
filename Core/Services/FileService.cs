@@ -6,7 +6,7 @@ using GothicSaveEditor.Core.Utils;
 
 namespace GothicSaveEditor.Core.Services
 {
-    public static class FileManager
+    public static class FileService
     {
         private const string FileName = "SAVEDAT"; //FileName
         private const string DefaultExt = "SAVEDAT"; //File Extensinon
@@ -33,11 +33,7 @@ namespace GothicSaveEditor.Core.Services
                 Filter = Filter,
                 RestoreDirectory = true
             };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                return openFileDialog.FileName;
-            }
-            return null;
+            return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;
         }
 
         public static string ExportSave()

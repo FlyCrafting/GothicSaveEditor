@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using GothicSaveEditor.Models;
 
-namespace GothicSaveEditor.Models
+namespace GothicSaveEditor.Core.Primitives
 {
     public struct SaveGame
     {

@@ -1,6 +1,6 @@
 ﻿using GothicSaveEditor.Views;
 using System.ComponentModel;
-using GothicSaveEditor.Core.Primitives;
+using GothicSaveEditor.Models;
 
 
 namespace GothicSaveEditor.ViewModels

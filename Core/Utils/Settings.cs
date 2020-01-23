@@ -96,7 +96,7 @@ namespace GothicSaveEditor.Core.Utils
                 App.SetLanguage(_language);
             }
             if (_exceptionDuringLoading)
-                MessageBox.Show(ResourceManager.GetString("UnableToLoadSettings"));
+                MessageBox.Show(ResourceServices.GetString("UnableToLoadSettings"));
         }
 
 
@@ -171,7 +171,7 @@ namespace GothicSaveEditor.Core.Utils
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show(ResourceManager.GetString("UnableToSaveSettings"));
+                MessageBox.Show(ResourceServices.GetString("UnableToSaveSettings"));
             }
         }
 

@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace GothicSaveEditor.Core.Services
 {
-    public static class ResourceManager
+    public static class ResourceServices
     {
         public static string GetString(string resourceName)
         {

@@ -17,17 +17,23 @@ namespace GothicSaveEditor.Core.Readers
     /// 4. Обычные переменные
     /// 5. Мусор
     /// </summary>
-    public class SaveDatReader
+    public static class SaveDatReader
     {
-        private bool _dialogBegin;
-        private bool _dialogEnd;
-        private bool _dialog = true;
-        private bool _mission;
+        private static bool _dialogBegin;
+        private static bool _dialogEnd;
+        private static bool _dialog;
+        private static bool _mission;
 
-        public List<GothicVariable> Read(string path)
+        public static List<GothicVariable> Read(string path)
         {
             var byteArray = ReadSaveBytes(path);
             var controlPoints = FindControlPoints(byteArray);
+            
+            _dialogBegin = false;
+            _dialogEnd = false;
+            _dialog = true;
+            _mission = false;
+            
             return ParseSaveGame(byteArray, controlPoints.Item1, controlPoints.Item2);
         }
 
@@ -99,7 +105,7 @@ namespace GothicSaveEditor.Core.Readers
         }
 
 
-        private GothicVar TryToReadVariable(ref byte[] bytes, ref int rIndex)
+        private static GothicVar TryToReadVariable(ref byte[] bytes, ref int rIndex)
         {
             var values = new int[1];
             var positions = new int[1];
@@ -177,7 +183,7 @@ namespace GothicSaveEditor.Core.Readers
         /// <param name="rIndex"></param>
         /// <param name="strLength"></param>
         /// <returns></returns>
-        private string ReadName(ref byte[] bytes, ref int rIndex, int strLength)
+        private static string ReadName(ref byte[] bytes, ref int rIndex, int strLength)
         {
             var sb = new StringBuilder(2048);
             var readTo = rIndex + strLength;
@@ -199,7 +205,7 @@ namespace GothicSaveEditor.Core.Readers
             return "";
         }
 
-        private List<GothicVariable> ParseSaveGame(byte[] byteArray, int startIndex, int lastIndex)
+        private static List<GothicVariable> ParseSaveGame(byte[] byteArray, int startIndex, int lastIndex)
         {
             var needToReadValue = false;
             var varname = ""; // Название текущей переменной

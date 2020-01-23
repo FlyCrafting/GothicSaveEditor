@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GothicSaveEditor.Core.Primitives
+namespace GothicSaveEditor.Models
 {
     public class RelayCommand : ICommand
     {

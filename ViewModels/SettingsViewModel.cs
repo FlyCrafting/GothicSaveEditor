@@ -6,8 +6,9 @@ using System.Windows;
 using GothicSaveEditor.Core.Primitives;
 using GothicSaveEditor.Core.Services;
 using GothicSaveEditor.Core.Utils;
+using GothicSaveEditor.Models;
 
-namespace GothicSaveEditor.ViewModel
+namespace GothicSaveEditor.ViewModels
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
@@ -67,7 +68,7 @@ namespace GothicSaveEditor.ViewModel
                 {
                     try
                     {
-                        var path = FileManager.PickGothicFolder();
+                        var path = FileService.PickGothicFolder();
                         if (path == null)
                             return;
                         PathLine = path;
@@ -75,12 +76,11 @@ namespace GothicSaveEditor.ViewModel
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        MessageBox.Show(ResourceManager.GetString("UnableToSelectGameFolder"));
+                        MessageBox.Show(ResourceServices.GetString("UnableToSelectGameFolder"));
                     }
                 });
             }
         }
-
 
         public RelayCommand CloseWindowCommand
         {

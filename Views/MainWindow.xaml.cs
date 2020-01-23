@@ -1,5 +1,4 @@
-﻿using GothicSaveEditor.ViewModel;
-using GothicSaveEditor.ViewModels;
+﻿using GothicSaveEditor.ViewModels;
 
 namespace GothicSaveEditor
 {

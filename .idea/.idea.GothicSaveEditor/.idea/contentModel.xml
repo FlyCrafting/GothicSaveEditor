@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\CodeProjects\dotnet\GothicSaveEditor" t="IncludeRecursive">
+      <e p="app.config" t="Include" />
+      <e p="App.xaml" t="Include" />
+      <e p="App.xaml.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="Core" t="Include">
+        <e p="Managers" t="Include" />
+        <e p="Primitives" t="Include">
+          <e p="GothicVar.cs" t="Include" />
+          <e p="SaveGame.cs" t="Include" />
+          <e p="VariablesComparer.cs" t="Include" />
+        </e>
+        <e p="Readers" t="Include">
+          <e p="SaveDatReader.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="Dispatcher.cs" t="Include" />
+          <e p="FileService.cs" t="Include" />
+          <e p="ResourceService.cs" t="Include" />
+          <e p="WindowsService.cs" t="Include" />
+        </e>
+        <e p="Utils" t="Include">
+          <e p="Extensions.cs" t="Include" />
+          <e p="Settings.cs" t="Include" />
+        </e>
+      </e>
+      <e p="GothicSaveEditor.csproj" t="IncludeRecursive" />
+      <e p="GothicSaveEditor.sln" t="IncludeFlat" />
+      <e p="Images" t="Include">
+        <e p="gse_icon.ico" t="Include" />
+      </e>
+      <e p="Models" t="Include">
+        <e p="GothicVariable.cs" t="Include" />
+        <e p="RelayCommand.cs" t="Include" />
+        <e p="Script.cs" t="Include" />
+      </e>
+      <e p="NLog.config" t="Include" />
+      <e p="NLog.xsd" t="Include" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="App.g.cs" t="Include" />
+          <e p="GothicSaveEditor_Content.g.cs" t="Include" />
+          <e p="Styles" t="Include">
+            <e p="WindowStyle.g.cs" t="Include" />
+          </e>
+          <e p="Views" t="Include">
+            <e p="AboutWindow.g.cs" t="Include" />
+            <e p="MainWindow.g.cs" t="Include" />
+            <e p="SettingsWindow.g.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="Resources.Designer.cs" t="Include" />
+        <e p="Resources.resx" t="Include" />
+        <e p="Settings.Designer.cs" t="Include" />
+        <e p="Settings.settings" t="Include" />
+      </e>
+      <e p="Resources" t="Include">
+        <e p="English.xaml" t="Include" />
+        <e p="Russian.xaml" t="Include" />
+      </e>
+      <e p="Styles" t="Include">
+        <e p="StylesExtensions.cs" t="Include" />
+        <e p="WindowStyle.cs" t="Include" />
+        <e p="WindowStyle.xaml" t="Include" />
+      </e>
+      <e p="ViewModels" t="Include">
+        <e p="AboutViewModel.cs" t="Include" />
+        <e p="MainViewModel.Commands.cs" t="Include" />
+        <e p="MainViewModel.cs" t="Include" />
+        <e p="SettingsViewModel.cs" t="Include" />
+      </e>
+      <e p="Views" t="Include">
+        <e p="AboutWindow.xaml" t="Include" />
+        <e p="AboutWindow.xaml.cs" t="Include" />
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="SettingsWindow.xaml" t="Include" />
+        <e p="SettingsWindow.xaml.cs" t="Include" />
+      </e>
+    </e>
+    <e p="C:\Users\RyzenTop\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\RyzenTop\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_GothicSaveEditor.-912130.00" t="ExcludeRecursive" />
+  </component>
+</project>
