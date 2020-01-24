@@ -1,5 +1,4 @@
-﻿using GothicSaveEditor.Views;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 
 namespace GothicSaveEditor.Core.Services
@@ -19,14 +18,6 @@ namespace GothicSaveEditor.Core.Services
                 return;
             var sw = new SettingsWindow();
             sw.ShowDialog();
-        }
-
-        public static void OpenAbout()
-        {
-            if (IsWindowOpen<AboutWindow>())
-                return;
-            var aw = new AboutWindow();
-            aw.ShowDialog();
         }
     }
 }
