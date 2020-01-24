@@ -165,7 +165,7 @@ namespace GothicSaveEditor.ViewModels
                 {
                     try
                     {
-                        WindowsService.OpenAbout();
+                        System.Diagnostics.Process.Start("https://github.com/AnImperialMan/GothicSaveEditor/blob/master/README.md");
                     }
                     catch (Exception ex)
                     {

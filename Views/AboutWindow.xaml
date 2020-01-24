@@ -4,35 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="" Height="240" Width="400">
+        Style="{DynamicResource WindowStyle}"
+        Background="{DynamicResource MaterialDesignBackground}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="" Height="460" MinHeight="460" Width="600" MinWidth="600">
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="Esc"/>
     </Window.InputBindings>
 
-    <Grid Margin="5,5,5,5" Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" Text="{DynamicResource AboutText}" TextWrapping="Wrap"></TextBlock>
-        <Grid Grid.Row="1" Margin="0, 0, 10, 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" >
-                <Hyperlink NavigateUri="https://rpgrussia.com/" RequestNavigate="GoToSite">RPGRussia</Hyperlink>
-            </TextBlock>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" >
-                <Hyperlink NavigateUri="http://worldofplayers.ru/" RequestNavigate="GoToSite">World of Players RU</Hyperlink>
-            </TextBlock>
-        </Grid>
+    <StackPanel Margin="10, 10, 10, 10" Background="White" Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" Text="{DynamicResource GSETitle}" FontSize="24" FontWeight="Bold"></TextBlock>
+        <TextBlock Text="{DynamicResource AboutText}" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Margin="0, 0, 0, 5 ">
+            <Hyperlink NavigateUri="https://github.com/AnImperialMan/GothicSaveEditor" RequestNavigate="GoToSite">https://github.com/AnImperialMan/GothicSaveEditor</Hyperlink>
+        </TextBlock>
+        <TextBlock Text="{DynamicResource SourceCode}" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Margin="0, 0, 0, 5 ">
+            <Hyperlink NavigateUri="https://github.com/AnImperialMan/GothicSaveEditor" RequestNavigate="GoToSite">https://github.com/AnImperialMan/GothicSaveEditor</Hyperlink>
+        </TextBlock>
+
         <TextBlock Grid.Row="3" HorizontalAlignment="Stretch" TextWrapping="Wrap">
             <TextBlock Text="{DynamicResource AuthorText1}"></TextBlock>
                 <Hyperlink NavigateUri="https://rpgrussia.com/members/rightman.13187/" RequestNavigate="GoToSite">RightMAN</Hyperlink>
@@ -42,5 +36,5 @@
                 <Hyperlink NavigateUri="https://forum.worldofplayers.de/forum/members/13164-Sumpfkrautjunkie" RequestNavigate="GoToSite">Sumpfkrautjunkie</Hyperlink>
         </TextBlock>
         <TextBlock Grid.Row="6" HorizontalAlignment="Stretch" TextWrapping="Wrap" FontSize="14" Text="{DynamicResource AuthorText3}"></TextBlock>
-    </Grid>
+    </StackPanel>
 </Window>

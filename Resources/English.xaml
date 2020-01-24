@@ -4,7 +4,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!-- Main window -->
-    <system:String x:Key="MainWindow">Gothic Save Editor</system:String>
+    <system:String x:Key="GSETitle">Gothic Savegame Editor</system:String>
     
     <system:String x:Key="Savegame">Savegame</system:String>
     <system:String x:Key="Open">Open(Ctrl+A)</system:String>
@@ -33,7 +33,8 @@
 
     
     <!-- About window -->
-    <system:String x:Key="AboutText">Gothic Save Editor(GSE) is a Gothic1/2(and their mods) savegame editor. For more, visit forums:</system:String>
+    <system:String x:Key="AboutText">Gothic Save Editor(GSE) is a Gothic1/2(and their mods) savegame editor. Please, follow github page to get detailed instructions: </system:String>
+    <system:String x:Key="SourceCode">This program is open-source and licenced under MIT. Source code is always available on Github: </system:String>
     <system:String x:Key="AuthorText1">Program developer is</system:String>
     <system:String x:Key="AuthorText2">Many thanks to</system:String>
     <system:String x:Key="AuthorText3">for his "Gothic Variables Editor"!</system:String>

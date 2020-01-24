@@ -5,7 +5,7 @@
 
 
     <!-- Main window -->
-    <system:String x:Key="MainWindow">Редактор сохранений Готики</system:String>
+    <system:String x:Key="GSETitle">Редактор сохранений Готики</system:String>
     <system:String x:Key="Savegame">Файл</system:String>
     <system:String x:Key="Open">Открыть(Ctrl+A)</system:String>
     <system:String x:Key="Save">Сохранить(Ctrl+S)</system:String>
@@ -33,7 +33,8 @@
 
     
     <!-- About window -->
-    <system:String x:Key="AboutText">Gothic Save Editor(GSE) - это редактор сохранений Готики1/2 и их модов. Для большей информации, посетите форумы:</system:String>
+    <system:String x:Key="AboutText">Gothic Save Editor(GSE) - это редактор сохранений Готики1/2 и их модов. Для получения подробной инструкции, посетите страницу на Github:</system:String>
+    <system:String x:Key="SourceCode">Данная программа имеет открытый исходный код и распространяется под лицензией MIT. Исходный код доступен здесь:</system:String>
     <system:String x:Key="AuthorText1">Автор программы -</system:String>
     <system:String x:Key="AuthorText2">Большое спасибо</system:String>
     <system:String x:Key="AuthorText3">за его "Gothic Variables Editor"!</system:String>
