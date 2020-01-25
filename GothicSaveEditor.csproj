@@ -98,6 +98,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Primitives\SaveGame.cs" />
+    <Compile Include="Core\Readers\SavedatConstants.cs" />
     <Compile Include="Core\Utils\Extensions.cs" />
     <Compile Include="Core\Primitives\VariablesComparer.cs" />
     <Compile Include="Core\Primitives\GothicVar.cs" />
