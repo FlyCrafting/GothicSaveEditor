@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using GothicSaveEditor.Core.Primitives;
 using GothicSaveEditor.Models;
+using static GothicSaveEditor.Core.Readers.SavedatConstants;
 
 namespace GothicSaveEditor.Core.Readers
 {
@@ -105,23 +106,23 @@ namespace GothicSaveEditor.Core.Readers
         }
 
 
-        private static GothicVar TryToReadVariable(ref byte[] bytes, ref int rIndex)
+        private static GothicVar ReadVariable(ref byte[] bytes, ref int rIndex)
         {
             var values = new int[1];
             var positions = new int[1];
 
             var arraySize = int.MaxValue;
             var arrIteration = -1;
-            while (bytes[rIndex] == 0x12) // Начало значения переменной
+            while (bytes[rIndex] == ValueMarker) // Начало значения переменной
             {
                 rIndex += 5;
-                if (bytes[rIndex] == 0x01)
+                if (bytes[rIndex] == NameMarker)
                 {
                     break; // Если 0x01 то это текст, значит мы должны закончить считывание этой переменной
                 }
 
                 rIndex++;
-                if (bytes[rIndex - 1] == 0x02) // Значение начинается здесь
+                if (bytes[rIndex - 1] == NormalVarMarker) // Значение начинается здесь
                 {
                     if (_dialogBegin)
                     {
@@ -151,7 +152,7 @@ namespace GothicSaveEditor.Core.Readers
                     }
                     arrIteration++;
                 }
-                else if (bytes[rIndex - 1] == 0x06) // Начало диалога
+                else if (bytes[rIndex - 1] == DialogMarker) // Начало диалога
                 {
                     values[0] = BitConverter.ToInt32(bytes, rIndex);
                     positions[0] = rIndex;
@@ -159,7 +160,7 @@ namespace GothicSaveEditor.Core.Readers
                 rIndex += 4; // Integer занимает 4 байта
 
                 // ReSharper disable once InvertIf
-                if (_dialog && bytes[rIndex - 5] == 0x06)
+                if (_dialog && bytes[rIndex - 5] == DialogMarker)
                 {
                     _dialogBegin = true;
                     return new GothicVar(positions, values);
@@ -168,30 +169,21 @@ namespace GothicSaveEditor.Core.Readers
             return new GothicVar(positions, values);
         }
 
-        private static int ReadLength(ref byte[] bytes, ref int rIndex) // Читает 
+        
+        private static string ReadName(ref byte[] bytes, ref int index)
         {
-            rIndex += 1;
-            int length = BitConverter.ToInt16(bytes, rIndex);
-            rIndex += 2;
-            return length;
-        }
-
-        /// <summary>
-        /// Возвращает строку если _mission был равен false, в противном случае, возвращает пустую строку. 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="rIndex"></param>
-        /// <param name="strLength"></param>
-        /// <returns></returns>
-        private static string ReadName(ref byte[] bytes, ref int rIndex, int strLength)
-        {
+            int length = BitConverter.ToInt16(bytes, ++index);
+            index += 2;
+            if (length <= 0)
+                return "";
+            
             var sb = new StringBuilder(2048);
-            var readTo = rIndex + strLength;
-            for (; rIndex < readTo; rIndex++)
+            var readTo = index + length;
+            for (; index < readTo; index++)
             {
-                sb.Append((char)bytes[rIndex]);
+                sb.Append((char)bytes[index]);
             }
-            rIndex--;
+            index--;
 
             var str = sb.ToString();
             if (_mission == false)
@@ -216,18 +208,18 @@ namespace GothicSaveEditor.Core.Readers
             // Начинаем парсить переменные!
             for (var index = startIndex; index < lastIndex; index++)
             {
-                if (byteArray[index] == 0x12) // Начало значения переменной
+                if (byteArray[index] == ValueMarker) // Начало значения переменной
                 {
                     if (_dialog) // В диалоге сначала идет чтение значения и только потом строка
                     {
-                        gothicVar = TryToReadVariable(ref byteArray, ref index); // Передача идет по ссылке
+                        gothicVar = ReadVariable(ref byteArray, ref index); // Передача идет по ссылке
                     }
                     else
                     {
                         // ReSharper disable once InvertIf
                         if (needToReadValue && varname.Trim().Length > 0) // Уже считали название переменной, считываем ее значение
                         {
-                            gothicVar = TryToReadVariable(ref byteArray, ref index); // Читаем значение
+                            gothicVar = ReadVariable(ref byteArray, ref index); // Читаем значение
                             if (_dialogEnd) // Если достигнут конец, переменная не будет сохранена, поскольку последний слайд получает неверное значение
                             {
                                 _dialogEnd = false;
@@ -248,13 +240,9 @@ namespace GothicSaveEditor.Core.Readers
                         }
                     }
                 }
-                else if (byteArray[index] == 0x01) // Начало строки(названия переменной)
+                else if (byteArray[index] == NameMarker)
                 {
-                    var stringLength = ReadLength(ref byteArray, ref index); // Длина названия текущей переменной
-                    if (stringLength > 0)
-                    {
-                        varname = ReadName(ref byteArray, ref index, stringLength);
-                    }
+                    varname = ReadName(ref byteArray, ref index);
                     if (varname.Trim().Length > 0)
                     {
                         if (_dialog && _dialogBegin) // В диалоговом режиме центрирование переменной заканчивается, поэтому переменная генерируется здесь
