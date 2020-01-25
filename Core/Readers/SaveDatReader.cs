@@ -208,7 +208,7 @@ namespace GothicSaveEditor.Core.Readers
             // Начинаем парсить переменные!
             for (var index = startIndex; index < lastIndex; index++)
             {
-                if (byteArray[index] == ValueMarker) // Начало значения переменной
+                if (byteArray[index] == ValueMarker)
                 {
                     if (_dialog) // В диалоге сначала идет чтение значения и только потом строка
                     {
@@ -226,14 +226,9 @@ namespace GothicSaveEditor.Core.Readers
                             }
                             else
                             {
-                                if (gothicVar.Values.Length == 1)
-                                {
-                                    variablesList.Add(new GothicVariable(varname, gothicVar.Positions[0], gothicVar.Values[0]));
-                                }
-                                else if (gothicVar.Values.Length > 1)
-                                {
-                                    variablesList.AddRange(gothicVar.Values.Select((t, ki) => new GothicVariable(varname, gothicVar.Positions[ki], t, ki)));
-                                }
+                                variablesList.AddRange(gothicVar.Values.Select((t, i) => gothicVar.Values.Length > 1
+                                    ? new GothicVariable(varname, gothicVar.Positions[i], gothicVar.Values[0], i)
+                                    : new GothicVariable(varname, gothicVar.Positions[i], gothicVar.Values[0])));
                             }
                             index--; //one back because of the while conditional i ++
                             needToReadValue = false; // Новая переменная строка должна читаться, пока не будет прочитано значение
@@ -247,14 +242,9 @@ namespace GothicSaveEditor.Core.Readers
                     {
                         if (_dialog && _dialogBegin) // В диалоговом режиме центрирование переменной заканчивается, поэтому переменная генерируется здесь
                         {
-                            if (gothicVar.Values.Length == 1)
-                            {
-                                variablesList.Add(new GothicVariable(varname, gothicVar.Positions[0], gothicVar.Values[0]));
-                            }
-                            else if (gothicVar.Values.Length > 1)
-                            {
-                                variablesList.AddRange(gothicVar.Values.Select((t, ki) => new GothicVariable(varname, gothicVar.Positions[ki], t, ki)));
-                            }
+                            variablesList.AddRange(gothicVar.Values.Select((t, i) => gothicVar.Values.Length > 1
+                                ? new GothicVariable(varname, gothicVar.Positions[i], gothicVar.Values[0], i)
+                                : new GothicVariable(varname, gothicVar.Positions[i], gothicVar.Values[0])));
                         }
                         else
                         {
