@@ -92,5 +92,24 @@ namespace GothicSaveEditor.ViewModels
                 });
             }
         }
+
+        public RelayCommand DeleteBackupsCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    if (MessageBox.Show(ResourceServices.GetString("AgreeBackupsDeleting"),
+                            ResourceServices.GetString("Warning"), MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
+                        MessageBoxResult.Yes)
+                    {
+                        if (!BackupService.DeleteAll())
+                        {
+                            MessageBox.Show(ResourceServices.GetString("CouldNotDeleteBackups"));
+                        }
+                    }
+                }, b => BackupService.BackupsCount > 0);
+            }
+        }
     }
 }

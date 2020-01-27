@@ -30,10 +30,16 @@
     <system:String x:Key="GothicPath">Path to the Gothic Folder</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="KeepBackups">Create and keep backups of Savegames</system:String>
+    <system:String x:Key="DeleteBackups">Delete all backups</system:String>
+
+    <system:String x:Key="AgreeBackupsDeleting">Are you sure about deleting all backups?</system:String>
+    <system:String x:Key="CouldNotDeleteBackups">Could not delete one or more backups. Make sure that you have access for it.</system:String>
 
 
     <!-- Message boxes -->
     <system:String x:Key="Warning">Warning</system:String>
+
+
     
     <system:String x:Key="UnableToSaveSettings">Unable to apply current settings! Make sure that you run the program with administrator rights.</system:String>
     <system:String x:Key="UnableToLoadSettings">Unable to load settings! Use default.</system:String>
