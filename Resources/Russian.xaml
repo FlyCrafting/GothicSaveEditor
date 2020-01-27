@@ -29,7 +29,7 @@
     <system:String x:Key="SettingsWindow">Настройки</system:String>
     <system:String x:Key="GothicPath">Путь к папке с готикой</system:String>
     <system:String x:Key="Language">Язык</system:String>
-    <system:String x:Key="BackupBeforeSaving">Автоматически создавать копии перед сохранением</system:String>
+    <system:String x:Key="KeepBackups">Хранить резервные копии сохранений</system:String>
 
 
     <!-- Message boxes -->

@@ -27,7 +27,7 @@ namespace GothicSaveEditor.Core.Services
         {
             var openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = Settings.GamePath,
+                InitialDirectory = Options.GamePath,
                 FileName = FileName,
                 DefaultExt = DefaultExt,
                 Filter = Filter,
@@ -40,7 +40,7 @@ namespace GothicSaveEditor.Core.Services
         {
             var saveFileDialog = new SaveFileDialog
             {
-                InitialDirectory = Settings.GamePath,
+                InitialDirectory = Options.GamePath,
                 FileName = FileName,
                 DefaultExt = DefaultExt,
                 Filter = Filter,

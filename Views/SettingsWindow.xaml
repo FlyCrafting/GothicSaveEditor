@@ -46,7 +46,7 @@
             <ComboBox  Grid.Row="1" ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"></ComboBox>
         </Grid>
         <Grid Grid.Row="4">
-            <CheckBox FontWeight="SemiBold" IsThreeState="False" IsChecked="{Binding BackupBeforeSaving, Mode=TwoWay}" Content="{DynamicResource BackupBeforeSaving}"/>
+            <CheckBox FontWeight="SemiBold" IsThreeState="False" IsChecked="{Binding KeepBackups, Mode=TwoWay}" Content="{DynamicResource KeepBackups}"/>
         </Grid>
     </Grid>
 </Window>

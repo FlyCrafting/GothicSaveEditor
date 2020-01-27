@@ -17,11 +17,11 @@ namespace GothicSaveEditor
             {
                 case "Русский":
                     dict.Source = new Uri("Resources/Russian.xaml", UriKind.Relative);
-                    Settings.Language = "Русский";
+                    Options.Language = "Русский";
                     break;
                 default:
                     dict.Source = new Uri("Resources/English.xaml", UriKind.Relative);
-                    Settings.Language = "English";
+                    Options.Language = "English";
                     break;
             }
             var oldDict = (from d in Current.Resources.MergedDictionaries

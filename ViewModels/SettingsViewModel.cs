@@ -23,36 +23,36 @@ namespace GothicSaveEditor.ViewModels
 
         public string PathLine
         {
-            get => Settings.GamePath;
+            get => Options.GamePath;
             set
             {
-                Settings.GamePath = value;
+                Options.GamePath = value;
                 OnPropertyChanged();
             }
         }
 
         public string CurrentLanguage
         {
-            get => Settings.Language;
+            get => Options.Language;
             set
             {
-                Settings.Language = value;
+                Options.Language = value;
                 App.SetLanguage(value);
                 OnPropertyChanged();
             }
         }
 
-        public bool BackupBeforeSaving
+        public bool KeepBackups
         {
-            get => Settings.AutoBackup;
+            get => Options.KeepBackups;
             set
             {
-                Settings.AutoBackup = value;
+                Options.KeepBackups = value;
                 OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<string> Languages { get; set; } = new ObservableCollection<string>() { "English", "Русский" };
+        public ObservableCollection<string> Languages { get; set; } = new ObservableCollection<string> { "English", "Русский" };
         private readonly SettingsWindow _settingsWindow;
 
         public SettingsViewModel(SettingsWindow settingsWindow)

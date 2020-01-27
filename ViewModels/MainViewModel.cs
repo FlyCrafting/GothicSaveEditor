@@ -88,7 +88,7 @@ namespace GothicSaveEditor.ViewModels
             }
         }
         
-        public string GseVersion => Settings.GseVersion;
+        public string GseVersion => Options.GseVersion;
 
 
         bool CanCloseSave =>
@@ -138,7 +138,7 @@ namespace GothicSaveEditor.ViewModels
                 backup = LeftInfoLine;
             }
             LeftInfoLine = ResourceServices.GetString(text);
-            Task.Delay(Settings.InfoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
+            Task.Delay(Options.InfoLinePopUpTime).ContinueWith(t => ResetDynamicInfo(backup));
         }
 
         private void ResetDynamicInfo(string toText)
@@ -219,12 +219,12 @@ namespace GothicSaveEditor.ViewModels
         {
             try
             {
-                if (!Directory.Exists(Environment.CurrentDirectory + Settings.ScriptsDirectory))
+                if (!Directory.Exists(Environment.CurrentDirectory + Options.ScriptsDirectory))
                 {
-                    Directory.CreateDirectory(Environment.CurrentDirectory + Settings.ScriptsDirectory);
+                    Directory.CreateDirectory(Environment.CurrentDirectory + Options.ScriptsDirectory);
                     return;
                 }
-                string[] dirs = Directory.GetFiles(Environment.CurrentDirectory + Settings.ScriptsDirectory, "*.gses");
+                string[] dirs = Directory.GetFiles(Environment.CurrentDirectory + Options.ScriptsDirectory, "*.gses");
                 if (dirs.Length == 0)
                 {
                     return;

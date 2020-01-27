@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Core\Primitives\SaveGame.cs" />
     <Compile Include="Core\Readers\SavedatConstants.cs" />
+    <Compile Include="Core\Services\BackupService.cs" />
     <Compile Include="Core\Utils\Extensions.cs" />
     <Compile Include="Core\Primitives\VariablesComparer.cs" />
     <Compile Include="Core\Primitives\GothicVar.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Core\Services\Dispatcher.cs" />
     <Compile Include="Core\Services\FileService.cs" />
     <Compile Include="Core\Services\ResourceService.cs" />
-    <Compile Include="Core\Utils\Settings.cs" />
+    <Compile Include="Core\Utils\Options.cs" />
     <Compile Include="Styles\StylesExtensions.cs" />
     <Compile Include="Styles\WindowStyle.cs" />
     <Compile Include="ViewModels\MainViewModel.Commands.cs" />
@@ -190,9 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\gse_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

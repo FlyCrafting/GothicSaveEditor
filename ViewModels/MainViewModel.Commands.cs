@@ -55,10 +55,9 @@ namespace GothicSaveEditor.ViewModels
                 {
                     try
                     {
-                        if (Settings.AutoBackup)
-                        {
-                            File.Copy(_openedSaveGame.Value.FilePath, _openedSaveGame.Value.FilePath + ".bak", true);
-                        }
+                        if (Options.KeepBackups)
+                            BackupService.MakeBackup(_openedSaveGame.Value.FilePath);
+                        
                         WriteVariablesToFile(_openedSaveGame.Value.FilePath);
                         SetDynamicInfo("SavedSucessfully");
                     }

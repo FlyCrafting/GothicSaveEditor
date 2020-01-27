@@ -9,11 +9,11 @@ using GothicSaveEditor.Core.Services;
 
 namespace GothicSaveEditor.Core.Utils
 {
-    public static class Settings
+    public static class Options
     {
         #region Parameters
         //Selected langauge
-        private static string _language;
+        private static string _language; // default value set(detected by OS language) in App.Xaml.cs
         public static string Language
         {
             get => _language;
@@ -37,13 +37,13 @@ namespace GothicSaveEditor.Core.Utils
         }
 
         //Is AutoBackup enabled?
-        private static bool _autoBackup = false;
-        public static bool AutoBackup
+        private static bool _keepBackups = true;
+        public static bool KeepBackups
         {
-            get => _autoBackup;
+            get => _keepBackups;
             set
             {
-                _autoBackup = value;
+                _keepBackups = value;
                 Save();
             }
         }
@@ -61,13 +61,11 @@ namespace GothicSaveEditor.Core.Utils
         public static string GseVersion = "Gothic Save Editor v. " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5) + " open-beta";
 
         private static readonly string SettingsFile = @"settings.gsec";
-
-        private static bool _exceptionDuringLoading = false;
         #endregion
 
-        static Settings()
+        static Options()
         {
-            Load();
+            var loadState = Load();
             if (_language == null)
             {
                 if (InputLanguageManager.Current.AvailableInputLanguages != null)
@@ -83,12 +81,12 @@ namespace GothicSaveEditor.Core.Utils
             {
                 App.SetLanguage(_language);
             }
-            if (_exceptionDuringLoading)
+            if (!loadState)
                 MessageBox.Show(ResourceServices.GetString("UnableToLoadSettings"));
         }
 
 
-        private static readonly Dictionary<string, Action<string>> settings = new Dictionary<string, Action<string>>()
+        private static readonly Dictionary<string, Action<string>> Settings = new Dictionary<string, Action<string>>()
         {
             ["language"] = val =>
             {
@@ -101,33 +99,35 @@ namespace GothicSaveEditor.Core.Utils
                 //Else use system language
             },
             ["game_path"] = val => _gamePath = val,
-            ["auto_backup"] = val =>
+            ["keep_backups"] = val =>
             {
-                if (val == "true")
-                    _autoBackup = true;
+                if (val == "True")
+                    _keepBackups = true;
                 //Else do not change anything, false is by default
             }
         };
 
-        public static void Load()
+        public static bool Load()
         {
             //If file doesn't exists then do not try to load settings!
             if (!File.Exists(SettingsFile))
-                return;
+                return true;
             try
             {
                 foreach (var line in File.ReadAllLines(SettingsFile))
                 {
                     var lineSplitted = line.Split('=');
                     var val = line.Substring(lineSplitted[0].Length + 1).Trim();
-                    settings[lineSplitted[0].Trim().ToLower()](val);
+                    Settings[lineSplitted[0].Trim().ToLower()](val);
                 }
             }
             catch (Exception ex)
             {
-                _exceptionDuringLoading = true;
                 Logger.Error(ex);
+                return false;
             }
+
+            return true;
         }
 
         public static void Save()
@@ -143,10 +143,8 @@ namespace GothicSaveEditor.Core.Utils
 
                 if (_gamePath != null)
                     sb.AppendLine($"game_path={_gamePath}");
-
-                //sb.AppendLine($"auto_search={_autoSearch}");
-
-                sb.AppendLine($"auto_backup={_autoBackup}");
+                
+                sb.AppendLine($"keep_backups={_keepBackups}");
 
                 File.WriteAllText(SettingsFile, sb.ToString());
             }
