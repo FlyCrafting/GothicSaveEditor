@@ -172,7 +172,7 @@ namespace GothicSaveEditor.ViewModels
                     fastVariables[variable.FullName.ToLower()] = variable;
                 }
                 foreach (var item in script.actions)
-                {
+                {   
                     if (fastVariables.ContainsKey(item.Key.ToLower()))
                     {
                         fastVariables[item.Key.ToLower()].Value = item.Value;

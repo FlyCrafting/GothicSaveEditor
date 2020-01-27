@@ -6,13 +6,13 @@
         x:Class="GothicSaveEditor.MainWindow"
         mc:Ignorable="d"
         Style="{DynamicResource WindowStyle}"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignBackground}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        Tag="{Binding GseVersion}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Height="460" MinHeight="460" Width="600" MinWidth="600">
+        Tag="{Binding GseVersion}"
+        Height="460" MinHeight="460" Width="560" MinWidth="560">
 
 
 
@@ -55,11 +55,8 @@
                     <MenuItem Header="{DynamicResource ExportVariables}" Command="{Binding ExportVariablesCommand}"/>
                 </MenuItem>-->
                 <MenuItem Header="{DynamicResource Settings}" Command="{Binding SettingsCommand}"/> 
-                <!-- <MenuItem Header="{DynamicResource About}" Command="{Binding AboutCommand}"/> -->
+                <MenuItem Header="{DynamicResource About}" Command="{Binding AboutCommand}"/>
             </Menu>
-            <!--<Menu Grid.Column="2" FontSize="14" Background="Transparent">
-                <CheckBox IsThreeState="False" IsChecked="{Binding AutoSearch, Mode=TwoWay}" Content="{DynamicResource AutoSearch}"/>
-            </Menu> -->
         </Grid>
 
         <Grid Grid.Row="1" Margin="0 5 0 0">

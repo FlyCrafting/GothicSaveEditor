@@ -11,7 +11,7 @@ namespace GothicSaveEditor.Core.Utils
         public static List<GothicVariable> Search(this List<GothicVariable> variables, string searchText)
         {
             var regx = new Regex(Regex.Escape(searchText), RegexOptions.IgnoreCase);
-            return variables.Where(gv => regx.IsMatch(gv.VariableName)).ToList();
+            return variables.Where(gv => regx.IsMatch(gv.FullName)).ToList();
         }
     }
 }

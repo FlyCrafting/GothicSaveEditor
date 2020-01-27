@@ -14,6 +14,7 @@
           <e p="VariablesComparer.cs" t="Include" />
         </e>
         <e p="Readers" t="Include">
+          <e p="SavedatConstants.cs" t="Include" />
           <e p="SaveDatReader.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
@@ -47,7 +48,6 @@
             <e p="WindowStyle.g.cs" t="Include" />
           </e>
           <e p="Views" t="Include">
-            <e p="AboutWindow.g.cs" t="Include" />
             <e p="MainWindow.g.cs" t="Include" />
             <e p="SettingsWindow.g.cs" t="Include" />
           </e>
@@ -72,14 +72,11 @@
         <e p="WindowStyle.xaml" t="Include" />
       </e>
       <e p="ViewModels" t="Include">
-        <e p="AboutViewModel.cs" t="Include" />
         <e p="MainViewModel.Commands.cs" t="Include" />
         <e p="MainViewModel.cs" t="Include" />
         <e p="SettingsViewModel.cs" t="Include" />
       </e>
       <e p="Views" t="Include">
-        <e p="AboutWindow.xaml" t="Include" />
-        <e p="AboutWindow.xaml.cs" t="Include" />
         <e p="MainWindow.xaml" t="Include" />
         <e p="MainWindow.xaml.cs" t="Include" />
         <e p="SettingsWindow.xaml" t="Include" />

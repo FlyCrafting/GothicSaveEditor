@@ -36,18 +36,6 @@ namespace GothicSaveEditor.Core.Utils
             }
         }
 
-        //Is Auto-Search enabled?
-        /*private static bool _autoSearch = true;
-        public static bool AutoSearch
-        {
-            get => _autoSearch;
-            set
-            {
-                _autoSearch = value;
-                Save();
-            }
-        }*/
-
         //Is AutoBackup enabled?
         private static bool _autoBackup = false;
         public static bool AutoBackup
@@ -70,7 +58,7 @@ namespace GothicSaveEditor.Core.Utils
 
         public static readonly string ScriptsDirectory = @"\scripts";
         
-        public static string GseVersion = "Gothic Save Editor v. " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5) + " closed-beta";
+        public static string GseVersion = "Gothic Save Editor v. " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5) + " open-beta";
 
         private static readonly string SettingsFile = @"settings.gsec";
 
@@ -113,12 +101,6 @@ namespace GothicSaveEditor.Core.Utils
                 //Else use system language
             },
             ["game_path"] = val => _gamePath = val,
-            /*["auto_search"] = val =>
-            {
-                if (val == "false")
-                    _autoSearch = false;
-                //Else do not change anything, true is by default
-            },*/
             ["auto_backup"] = val =>
             {
                 if (val == "true")

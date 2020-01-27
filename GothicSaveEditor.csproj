@@ -98,6 +98,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Primitives\SaveGame.cs" />
+    <Compile Include="Core\Readers\SavedatConstants.cs" />
     <Compile Include="Core\Utils\Extensions.cs" />
     <Compile Include="Core\Primitives\VariablesComparer.cs" />
     <Compile Include="Core\Primitives\GothicVar.cs" />
@@ -108,11 +109,7 @@
     <Compile Include="Core\Utils\Settings.cs" />
     <Compile Include="Styles\StylesExtensions.cs" />
     <Compile Include="Styles\WindowStyle.cs" />
-    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.Commands.cs" />
-    <Compile Include="Views\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -125,10 +122,6 @@
     <Page Include="Styles\WindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +168,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Content Include="Directory.Builds.props" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -198,7 +192,7 @@
     <Resource Include="Images\gse_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\Managers" />
+    <Folder Include="Core\Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

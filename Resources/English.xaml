@@ -4,7 +4,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!-- Main window -->
-    <system:String x:Key="MainWindow">Gothic Save Editor</system:String>
+    <system:String x:Key="GSETitle">Gothic Savegame Editor</system:String>
     
     <system:String x:Key="Savegame">Savegame</system:String>
     <system:String x:Key="Open">Open(Ctrl+A)</system:String>
@@ -19,7 +19,7 @@
     <system:String x:Key="ExportVariables">Export variables</system:String>
 
     <system:String x:Key="Settings">Settings</system:String>
-    <system:String x:Key="About">About program</system:String>
+    <system:String x:Key="About">About program (Github)</system:String>
 
     <system:String x:Key="Variable">Variable</system:String>
     <system:String x:Key="Value">Value</system:String>
@@ -30,13 +30,6 @@
     <system:String x:Key="GothicPath">Path to the Gothic Folder</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="BackupBeforeSaving">Automatically create backups before saving</system:String>
-
-    
-    <!-- About window -->
-    <system:String x:Key="AboutText">Gothic Save Editor(GSE) is a Gothic1/2(and their mods) savegame editor. For more, visit forums:</system:String>
-    <system:String x:Key="AuthorText1">Program developer is</system:String>
-    <system:String x:Key="AuthorText2">Many thanks to</system:String>
-    <system:String x:Key="AuthorText3">for his "Gothic Variables Editor"!</system:String>
 
 
     <!-- Message boxes -->
