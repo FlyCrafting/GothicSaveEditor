@@ -6,16 +6,16 @@
         mc:Ignorable="d"
         Tag="{DynamicResource Settings}"
         Style="{DynamicResource WindowStyle}"
-        Title="{DynamicResource SettingsWindow}" Height="280" Width="600" MinHeight="280" MinWidth="600">
+        Title="{DynamicResource SettingsWindow}" Height="300" Width="600" MinHeight="300" MinWidth="600">
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="Esc"/>
     </Window.InputBindings>
 
-    <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 15">
+    <StackPanel Margin="10, 10, 10, 10" Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
             <TextBlock FontWeight="SemiBold" Text="{DynamicResource GothicPath}"></TextBlock>
-            <Grid Height="28">
+            <Grid Margin="0, 3, 0, 0" Height="28">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -26,11 +26,11 @@
                 <Button Margin="1 0 0 0" Grid.Column="1" Content="..." Command="{Binding SelectFolderCommand}"></Button>
             </Grid>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 30">
+        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 35">
             <TextBlock Text="{DynamicResource Language}" FontWeight="SemiBold"></TextBlock>
-            <ComboBox  ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"></ComboBox>
+            <ComboBox Margin="0, 3, 0, 0" ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"></ComboBox>
         </StackPanel>
-        <Grid Margin="0, 0, 0, 15">
+        <Grid Margin="0, 0, 0, 20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
