@@ -52,6 +52,18 @@ namespace GothicSaveEditor.ViewModels
             }
         }
 
+        public string BackupsInfo
+        {
+            get
+            {
+                var backupCount = BackupService.BackupsCount;
+                if (backupCount == 0)
+                    return "";
+                var backupsSize = BackupService.BackupsSize;
+                return $"  {backupCount} ({backupsSize} mb)  ";
+            }
+        }
+
         public ObservableCollection<string> Languages { get; set; } = new ObservableCollection<string> { "English", "Русский" };
         private readonly SettingsWindow _settingsWindow;
 
@@ -93,6 +105,17 @@ namespace GothicSaveEditor.ViewModels
             }
         }
 
+        public RelayCommand OpenBackupsFolderCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    BackupService.OpenBackupsFolder();
+                });
+            }
+        }
+
         public RelayCommand DeleteBackupsCommand
         {
             get
@@ -106,6 +129,10 @@ namespace GothicSaveEditor.ViewModels
                         if (!BackupService.DeleteAll())
                         {
                             MessageBox.Show(ResourceServices.GetString("CouldNotDeleteBackups"));
+                        }
+                        else
+                        {
+                            OnPropertyChanged(BackupsInfo);
                         }
                     }
                 }, b => BackupService.BackupsCount > 0);

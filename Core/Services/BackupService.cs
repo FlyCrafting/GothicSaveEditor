@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -9,6 +10,14 @@ namespace GothicSaveEditor.Core.Services
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         private static string BackupsFolder => Path.Combine(Directory.GetCurrentDirectory(), "Backups");
+
+        public static void OpenBackupsFolder()
+        {
+            if (!Directory.Exists(BackupsFolder))
+                Directory.CreateDirectory(BackupsFolder);
+
+            Process.Start(BackupsFolder);
+        }
 
         public static void MakeBackup(string path)
         {
@@ -23,25 +32,19 @@ namespace GothicSaveEditor.Core.Services
 
         public static int BackupsCount => Directory.Exists(BackupsFolder) ? Directory.GetFiles(BackupsFolder).Count(f => f.EndsWith(".SAV")) : 0;
 
-        public static Tuple<int, float> BackupsInfo
+        public static float BackupsSize
         {
             get
             {
                 if (!Directory.Exists(BackupsFolder))
                 {
-                    return Tuple.Create(0, 0f);
+                    return 0f;
                 }
 
                 var files = Directory.GetFiles(BackupsFolder);
-                var count = 0;
-                var totalSize = 0f;
-                foreach (var file in files.Where(f => f.EndsWith(".SAV")))
-                {
-                    count++;
-                    totalSize += new FileInfo(file).Length / 1024f / 1024; // in MegaBytes
-                }
+                var totalSize = files.Where(f => f.EndsWith(".SAV")).Sum(file => new FileInfo(file).Length / 1024f / 1024);
 
-                return Tuple.Create(count, totalSize);
+                return (float)Math.Round(totalSize, 2);
             }
         }
 

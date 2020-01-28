@@ -6,14 +6,14 @@
         mc:Ignorable="d"
         Tag="{DynamicResource Settings}"
         Style="{DynamicResource WindowStyle}"
-        Title="{DynamicResource SettingsWindow}" Height="240" Width="480">
+        Title="{DynamicResource SettingsWindow}" Height="280" Width="600" MinHeight="280" MinWidth="600">
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="Esc"/>
     </Window.InputBindings>
 
     <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
+        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 15">
             <TextBlock FontWeight="SemiBold" Text="{DynamicResource GothicPath}"></TextBlock>
             <Grid Height="28">
                 <Grid.ColumnDefinitions>
@@ -26,11 +26,25 @@
                 <Button Margin="1 0 0 0" Grid.Column="1" Content="..." Command="{Binding SelectFolderCommand}"></Button>
             </Grid>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
+        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 30">
             <TextBlock Text="{DynamicResource Language}" FontWeight="SemiBold"></TextBlock>
             <ComboBox  ItemsSource="{Binding Languages}" Text="{Binding CurrentLanguage}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"></ComboBox>
         </StackPanel>
-        <CheckBox Margin="0, 0, 0, 10" FontWeight="SemiBold" IsThreeState="False" IsChecked="{Binding KeepBackups, Mode=TwoWay}" Content="{DynamicResource KeepBackups}"/>
-        <Button Content="{DynamicResource DeleteBackups}" Command="{Binding DeleteBackupsCommand}"></Button>
+        <Grid Margin="0, 0, 0, 15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" FontWeight="SemiBold" IsThreeState="False" IsChecked="{Binding KeepBackups, Mode=TwoWay}" Content="{DynamicResource KeepBackups}"/>
+            <Button Grid.Column="1" Content="{DynamicResource OpenBackupsFolder}" Command="{Binding OpenBackupsFolderCommand}"></Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="{DynamicResource DeleteBackups}" Command="{Binding DeleteBackupsCommand}"></Button>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding BackupsInfo, Mode=OneWay}"></TextBlock>
+        </Grid>
     </StackPanel>
 </Window>

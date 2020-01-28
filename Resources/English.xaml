@@ -30,6 +30,7 @@
     <system:String x:Key="GothicPath">Path to the Gothic Folder</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="KeepBackups">Create and keep backups of Savegames</system:String>
+    <system:String x:Key="OpenBackupsFolder">Open backups folder</system:String>
     <system:String x:Key="DeleteBackups">Delete all backups</system:String>
 
     <system:String x:Key="AgreeBackupsDeleting">Are you sure about deleting all backups?</system:String>

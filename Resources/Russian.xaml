@@ -30,7 +30,9 @@
     <system:String x:Key="GothicPath">Путь к папке с готикой</system:String>
     <system:String x:Key="Language">Язык</system:String>
     <system:String x:Key="KeepBackups">Хранить резервные копии сохранений</system:String>
+    <system:String x:Key="OpenBackupsFolder">Открыть папку с резервными копиями</system:String>
     <system:String x:Key="DeleteBackups">Удалить все резервные копии</system:String>
+    
 
     <system:String x:Key="AgreeBackupsDeleting">Вы уверены что хотите удалить ВСЕ резервные копии?</system:String>
     <system:String x:Key="CouldNotDeleteBackups">Не удалось удалить один или несколько резервных копий, убедитесь что у вас есть необходимые права.</system:String>
