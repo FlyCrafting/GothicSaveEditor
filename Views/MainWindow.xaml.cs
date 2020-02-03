@@ -1,6 +1,7 @@
-﻿using GothicSaveEditor.ViewModels;
+﻿using System;
+using GothicSaveEditor.ViewModels;
 
-namespace GothicSaveEditor
+namespace GothicSaveEditor.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -9,12 +10,21 @@ namespace GothicSaveEditor
     {
         public MainWindow()
         {
-            //App entry point
             InitializeComponent();
-
-            //Creating View Model and set its DataContext for binding
+            
             var viewModelLogic = new MainViewModel();
             DataContext = viewModelLogic;
+            
+            // Open with program handling
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length >= 2)
+            {
+                var path = args[1];
+                if (path.EndsWith("SAVEDAT.SAV"))
+                {
+                    viewModelLogic.LoadSaveGame(path);
+                }
+            }
         }
     }
 }

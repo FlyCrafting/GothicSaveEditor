@@ -272,7 +272,7 @@ namespace GothicSaveEditor.ViewModels
             }
         }
 
-        private void LoadSaveGame(string saveGamePath)
+        public void LoadSaveGame(string saveGamePath)
         {
             //Path is always not null here!
             try

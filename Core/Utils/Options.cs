@@ -56,11 +56,11 @@ namespace GothicSaveEditor.Core.Utils
 
         public static int InfoLinePopUpTime = 1500;
 
-        public static readonly string ScriptsDirectory = @"\scripts";
+        public static readonly string ScriptsDirectory = AppDomain.CurrentDomain.BaseDirectory + @"\scripts";
         
         public static string GseVersion = "Gothic Save Editor v. " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5) + " open-beta";
 
-        private static readonly string SettingsFile = @"settings.gsec";
+        private static readonly string SettingsFile = AppDomain.CurrentDomain.BaseDirectory +  @"settings.gsec";
         #endregion
 
         static Options()

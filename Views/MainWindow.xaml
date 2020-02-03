@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        x:Class="GothicSaveEditor.MainWindow"
+        x:Class="GothicSaveEditor.Views.MainWindow"
         mc:Ignorable="d"
         Style="{DynamicResource WindowStyle}"
         Background="{DynamicResource MaterialDesignBackground}"
@@ -83,7 +83,7 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width ="0.2*" Binding="{Binding Value, Mode=TwoWay}">
+                <DataGridTextColumn Width ="0.2*" Binding="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{DynamicResource Value}"/>
                     </DataGridTextColumn.Header>

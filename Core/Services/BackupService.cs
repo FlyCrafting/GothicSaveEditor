@@ -9,7 +9,7 @@ namespace GothicSaveEditor.Core.Services
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private static string BackupsFolder => Path.Combine(Directory.GetCurrentDirectory(), "Backups");
+        private static string BackupsFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups");
 
         public static void OpenBackupsFolder()
         {
