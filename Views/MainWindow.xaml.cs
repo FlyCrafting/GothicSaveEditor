@@ -1,4 +1,5 @@
 ﻿using System;
+using GothicSaveEditor.Core.Services;
 using GothicSaveEditor.ViewModels;
 
 namespace GothicSaveEditor.Views
@@ -25,6 +26,8 @@ namespace GothicSaveEditor.Views
                     viewModelLogic.LoadSaveGame(path);
                 }
             }
+            
+            AssociationService.EnsureAssociationsSet();
         }
     }
 }

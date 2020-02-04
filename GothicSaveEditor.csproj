@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Core\Primitives\SaveGame.cs" />
     <Compile Include="Core\Readers\SavedatConstants.cs" />
+    <Compile Include="Core\Services\AssociationService.cs" />
     <Compile Include="Core\Services\BackupService.cs" />
     <Compile Include="Core\Utils\Extensions.cs" />
     <Compile Include="Core\Primitives\VariablesComparer.cs" />
